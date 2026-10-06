@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EPPGG Bahia 2026 · Painel de estudos</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2ff;--panel:#fff;--line:#c9d3f5;--ink:#10173a;--mute:#56608f;--c1:#0a7fb3;--c2:#6552e0;--ok:#0f9d6b;--warn:#b86a00;--bad:#d1294f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(900px 500px at 85% -10%,#e0d7ff99,transparent),radial-gradient(700px 400px at -10% 10%,#c7e3ff99,transparent),var(--bg);color:var(--ink);font:400 15px/1.5 'Space Grotesk',system-ui,sans-serif}
+main{max-width:1050px;margin:auto;padding:16px}
+h1{font-size:clamp(22px,4vw,32px);margin:4px 0 2px;letter-spacing:-.5px}
+h2{font-size:18px;margin:0 0 10px}
+.sub{color:var(--mute);margin:0 0 14px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+.k b{display:block;font-size:26px;color:var(--c1);line-height:1.1}
+.k span{color:var(--mute);font-size:13px}
+.bar{height:7px;background:#1b2a6b1f;border-radius:9px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--c1),var(--c2));border-radius:9px;transition:width .4s}
+nav{display:flex;gap:6px;overflow-x:auto;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5}
+nav button,.btn{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font:500 14px 'Space Grotesk',sans-serif;cursor:pointer;white-space:nowrap}
+nav button.on,.btn.pri{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border-color:transparent;font-weight:700}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--c1);outline-offset:2px}
+section{display:none}section.on{display:block}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row.p{color:var(--mute);font-size:13px}
+.row time{min-width:48px;color:var(--c1);font-weight:700}
+.row.done .t{text-decoration:line-through;color:var(--mute)}
+input[type=checkbox]{width:19px;height:19px;accent-color:var(--c1);flex:none;margin-top:2px}
+input,select,textarea{background:#f4f6ff;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:8px;font:inherit;max-width:100%}
+textarea{width:100%;min-height:120px}
+.tag{font-size:12px;padding:2px 8px;border-radius:20px;background:#9b8cff2e;color:var(--c2)}
+details{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--panel)}
+summary{padding:10px 14px;cursor:pointer;font-weight:500}
+details>div{padding:0 14px 10px}
+.timer{font-size:clamp(54px,14vw,84px);font-weight:700;text-align:center;color:var(--c1);letter-spacing:2px;}
+.ctr{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
+.tbl{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px;border-bottom:1px solid var(--line);text-align:left}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body><main>
+<h1>EPPGG Bahia 2026</h1>
+<p class="sub">Especialista em Políticas Públicas e Gestão Governamental · SAEB/Cesgranrio · prova em 10/01/2027</p>
+<div class="kpis" id="kpis"></div>
+<nav id="nav"></nav>
+
+<section id="hoje">
+<div class="grid"><div class="card"><h2 id="hjT">Hoje</h2><p class="sub" id="hjP"></p><div id="hjL"></div></div>
+<div class="card"><h2>Foco da banca</h2><div id="foco"></div></div></div>
+</section>
+
+<section id="crono"><p class="sub">Domingo a domingo, de 06/10/2026 até a prova. Cada dia tem teoria, questões, revisão (dia anterior e 7 dias antes) e pausas.</p><div id="cronoL"></div></section>
+
+<section id="edital"><p class="sub">Edital verticalizado: marque cada tópico estudado. Peso = pontos da prova objetiva (160 no total; corte 112).</p><div id="editalL"></div></section>
+
+<section id="sim">
+<div class="grid"><div class="card"><h2>Registrar simulado</h2>
+<p><select id="sD"></select> <input type="date" id="sDt"></p>
+<p>Acertos <input type="number" id="sA" min="0" style="width:80px"> de <input type="number" id="sT" min="1" style="width:80px"> <button class="btn pri" id="sAdd">Salvar resultado</button></p>
+<div class="tbl" id="sL"></div></div>
+<div class="card"><h2>Desempenho por disciplina</h2><div id="sP"></div></div></div>
+<div class="grid"><div class="card"><h2>Provas anteriores da banca</h2>
+<p class="sub">Não reproduzo questões de provas da Cesgranrio (direitos autorais). Estes links levam às provas originais:</p>
+<p><a class="btn pri" target="_blank" rel="noopener" href="https://www.cesgranrio.org.br/concurso/concurso-eppgg-bahia-2026/">Página do concurso</a></p><div class="ctr" id="pa" style="justify-content:flex-start"></div></div>
+<div class="card"><h2>Mini-simulado estilo Cesgranrio</h2>
+<p class="sub">Questões de autoria própria, no formato da banca (5 alternativas). Ao corrigir, o resultado entra nos simulados e os erros no caderno.</p><div id="mq"></div><p><button class="btn pri" id="mGo">Corrigir e registrar</button></p><div id="mR"></div></div></div>
+<div class="card"><h2>Caderno de erros</h2>
+<p><select id="eD"></select> <input id="eA" placeholder="Assunto" style="width:min(220px,100%)"></p>
+<textarea id="eT" placeholder="O que errei e por quê? Qual é a regra certa?" style="min-height:70px"></textarea>
+<p><button class="btn pri" id="eAdd">Salvar erro</button></p><div id="eL"></div></div>
+</section>
+
+<section id="foc">
+<div class="grid"><div class="card"><h2>Pomodoro</h2>
+<div class="ctr"><button class="btn pri" data-m="25">Foco 25</button><button class="btn" data-m="5">Pausa 5</button><button class="btn" data-m="15">Pausa longa 15</button></div>
+<div class="timer" id="tm">25:00</div>
+<div class="ctr"><button class="btn pri" id="go">Iniciar</button><button class="btn" id="rs">Zerar</button></div>
+<p class="sub" style="text-align:center" id="pc"></p></div>
+<div class="card"><h2>Música para estudar</h2>
+<div class="ctr"><button class="btn" data-y="jfKfPfyJRdk">Lo-fi ao vivo</button>
+<a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=rain+sounds+for+studying">Som de chuva</a>
+<a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=40hz+gamma+binaural+beats+focus">Frequência 40 Hz</a>
+<a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=study+music+playlist">Playlists</a></div>
+<iframe id="yt" title="Player do YouTube" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<p><input id="yu" placeholder="Cole um link de vídeo ou playlist do YouTube" style="width:100%"></p>
+<p class="sub">Os links de busca abrem no YouTube. Escolha o que gostar, copie o link e cole acima para tocar aqui.</p></div></div>
+<div class="card"><h2>Anotações do aprendizado</h2>
+<textarea id="nt" placeholder="Resumos, dúvidas, pontos fracos…"></textarea>
+<p class="sub">Para uma memória contínua com IA, envie edital, resumos e erros como fontes no NotebookLM e peça um resumo semanal.</p>
+<a class="btn" target="_blank" rel="noopener" href="https://notebooklm.google.com">Abrir NotebookLM</a></div>
+</section>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+let S;try{S=JSON.parse(localStorage.getItem('eppgg')||'{}')}catch(e){S={}}
+S.t=S.t||{};S.d=S.d||{};S.p=S.p||{};S.sim=S.sim||[];S.err=S.err||[];S.n=S.n||'';
+const save=()=>{try{localStorage.setItem('eppgg',JSON.stringify(S))}catch(e){}};
+const D=[
+["Língua Portuguesa",10,["Interpretação e compreensão de texto","Coesão, coerência e tipos textuais","Sintaxe: termos e orações","Regência e concordância","Pontuação e crase","Morfologia e classes de palavras","Semântica e vocabulário","Ortografia e acentuação"]],
+["Direito Constitucional",5,["Princípios fundamentais e eficácia das normas","Direitos e garantias fundamentais","Organização político-administrativa","Administração Pública e servidores (art. 37 a 41)","Poderes Executivo, Legislativo e Judiciário","Funções essenciais à justiça","Ordem econômica e social","Constituição do Estado da Bahia"]],
+["Direito Administrativo",5,["Princípios e regime jurídico administrativo","Poderes e atos administrativos","Organização administrativa e Lei 13.303","Serviços públicos, concessões e PPP","Processo administrativo (Lei estadual 12.209/2011)","Estatuto dos Servidores (Lei 6.677/1994)","Licitações e contratos (Lei 14.133/2021)","Controle da Administração","Responsabilidade civil, bens públicos e LINDB"]],
+["Administração Pública",5,["Estado, governo e burocracia (Weber)","Paradigmas burocrático e gerencial","Reforma do Estado e bem-estar social","Federalismo e consórcios públicos","OS e OSC (Lei 13.019 e lei estadual de OS)","Terceirização e parcerias público-privadas"]],
+["Ética e Integridade Pública",5,["Princípios éticos e art. 37 da CF","Improbidade (Lei 8.429)","Lei Anticorrupção (Lei 12.846)","Acesso à informação (Lei 12.527 e normas da Bahia)","Programa Bahia de Integridade Pública","Gestão de riscos","Apuração de irregularidades (Decreto 24.441/2026)"]],
+["Democracia, Diversidade e Igualdade",5,["Democracia, participação e CF/88","Direitos humanos","Desigualdades de renda, região, raça, idade e gênero","Diversidade e grupos vulnerabilizados","Estatutos da Igualdade Racial (federal e Bahia)","Lei Maria da Penha e convenções internacionais","Desenvolvimento sustentável e clima"]],
+["Economia",5,["Contas nacionais e agregados","Inflação e índices de preços","Política monetária e cambial","Balanço de pagamentos e câmbio","Ciclos econômicos e Plano Real (tripé)","Política fiscal, déficit e dívida","Economia baiana (ciclos, turismo, indústria, energia)"]],
+["Gestão Governamental",30,["Estruturas organizacionais e departamentalização","Processo decisório e mudança organizacional","Nova Gestão Pública x Novo Serviço Público","Gestão de pessoas, desempenho e competências","Liderança, motivação, clima e cultura","Logística, patrimônio e compras sustentáveis","Inovação, transformação digital e IA","LGPD (Lei 13.709)","Planejamento estratégico: BSC, SWOT, OKR, indicadores","Projetos: PMBOK e métodos ágeis","Processos: BPM, BI, Big Data"]],
+["Planejamento e Gestão Estratégica",30,["PPA, LDO e LOA","Planejamento estratégico de longo prazo","Política de Desenvolvimento Territorial (Lei 13.214/2014)","Governança do PPA 2024-2027 (Decreto 22.770/2024)"]],
+["Políticas Públicas",30,["Conceitos e ciclo de políticas públicas","Teorias: múltiplos fluxos, equilíbrio pontuado, coalizões, redes","Implementação e arranjos institucionais","Diversidade, ações afirmativas e interseccionalidade","Participação e controle social","Coordenação e intersetorialidade","Avaliação de políticas públicas","Estatística: amostragem, inferência, média, mediana e moda"]],
+["Finanças Públicas",30,["Orçamento: princípios e tipos","Receita e despesa: classificação e estágios","Ciclo orçamentário e créditos adicionais","Lei de Responsabilidade Fiscal","Federalismo fiscal e transferências","Dívida pública, déficit e política fiscal","Emendas, previdência e precatórios"]]];
+const FOCO=["Específicas valem 120 de 160 pontos (2 pontos por questão): Gestão, Planejamento, Políticas Públicas e Finanças pesam 75% da objetiva.","Nota mínima nas objetivas: 112 pontos (70%). Mire 75% nos simulados.","Provas da banca costumam ter 5 alternativas, enunciados longos e assertivas numeradas: treine eliminação e leitura atenta (tendência geral, confirme nas provas anteriores).","Português: textos longos, interpretação, coesão e pontuação valem mais que decorar regras.","Direito e Ética: literalidade do art. 37, leis citadas no edital e as normas novas da Bahia (2026).","Discursiva: 100 pontos, 20 a 30 linhas, mínimo 70; 50% conteúdo e 50% idioma. Só corrigem os 165 melhores da ampla e 165 das cotas.","Resolva provas anteriores da Cesgranrio por assunto antes de simulados completos."];
+const iso=d=>d.toISOString().slice(0,10),DAY=864e5,start=new Date('2026-10-06T12:00:00Z'),exam=new Date('2027-01-10T12:00:00Z');
+const loc=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const R={1:[7],2:[9],3:[10],4:[2,1],5:[8,0],6:[3,4,5,6]};
+const disc=dt=>{const o=dt.getUTCDay();if(!o||dt<start)return null;const w=Math.floor((dt-start)/(7*DAY)),a=R[o];return a[w%a.length]};
+const PH=dt=>{const i=iso(dt);return i<='2026-11-15'?['Base: entender o edital','Teoria + resumo curto']:i<='2026-12-15'?['Aprofundamento','Teoria dirigida + mapa mental']:i<='2027-01-03'?['Questões e simulados','Questões por assunto + caderno de erros']:['Reta final','Revisão ativa dos erros e resumos']};
+function plan(dt){const i=iso(dt),o=dt.getUTCDay(),ph=PH(dt),n=D[disc(dt)]?.[0];
+if(i=='2027-01-10')return[['06:00','Dia da prova: manhã Gerais + Discursiva, tarde Específicas. Chegue 45 min antes do fechamento dos portões com RG original e caneta transparente azul ou preta.',1]];
+if(i=='2027-01-09')return[['19:30','Revisão leve de resumos e caderno de erros. Separe documentos e material transparente. Durma cedo.',1]];
+if(o==0)return[['06:00','Simulado semanal estilo Cesgranrio (50 questões, cronometrado)',2],['08:15','Pausa 20 min: água e alongamento',0],['08:35','Correção e caderno de erros',2],['09:30','Pausa 15 min',0],['09:45','Discursiva: 1 tema, 20 a 30 linhas à mão',2],['10:35','Pausa 15 min',0],['10:50','Revisão semanal dos tópicos da semana',2]];
+if(o==6)return[['08:00','Teoria: '+n,4],['10:30','Pausa 20 min',0],['10:50','Questões Cesgranrio: '+n,3],['12:30','Almoço e descanso',0],['14:30','Revisão semanal dos erros',2]];
+const rv=[...new Set([disc(new Date(dt-DAY)),disc(new Date(dt-7*DAY))].filter(x=>x!=null).map(x=>D[x][0]))].join(' e ')||'conteúdos iniciais';
+return[['19:30',ph[1]+': '+n,2],['20:20','Pausa 15 min',0],['20:35','Questões Cesgranrio: '+n,1],['21:00','Pausa 5 min',0],['21:05','Revisão: '+rv,1],['21:30','Pausa 5 min',0],['21:35','Português: 1 texto e 5 questões',1]]}
+const days=[];for(let d=new Date(start);d<=exam;d=new Date(+d+DAY))days.push(new Date(d));
+const sk=(i,k)=>i+'#'+k;
+// nav
+const TABS=[['hoje','Hoje'],['crono','Cronograma'],['edital','Edital'],['sim','Simulados e erros'],['foc','Foco e música']];
+$('#nav').innerHTML=TABS.map(t=>`<button data-t="${t[0]}">${t[1]}</button>`).join('');
+function tab(id){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==id))}
+$('#nav').onclick=e=>{if(e.target.dataset.t)tab(e.target.dataset.t)};
+// kpis
+function kpis(){let tot=0,ck=0;D.forEach((d,x)=>d[2].forEach((_,y)=>{tot++;if(S.t[x+'.'+y])ck++}));
+let st=0,sd=0;days.forEach(dt=>plan(dt).forEach((s,k)=>{if(s[2]){st++;if(S.d[sk(iso(dt),k)])sd++}}));
+const pt=Object.values(S.p).reduce((a,b)=>a+b,0),ac=S.sim.reduce((a,s)=>a+s.a,0),to=S.sim.reduce((a,s)=>a+s.t,0),pc=to?Math.round(ac/to*100):null;
+const dl=Math.max(0,Math.ceil((exam-new Date(loc+'T12:00:00Z'))/DAY));
+const K=(v,l,p,c)=>`<div class="k"><b ${c?`class="${c}"`:''}>${v}</b><span>${l}</span>${p!=null?`<div class="bar"><i style="width:${p}%"></i></div>`:''}</div>`;
+$('#kpis').innerHTML=K(dl,'dias até a prova (10/01/2027)')+K(Math.round(ck/tot*100)+'%','edital estudado ('+ck+' de '+tot+')',ck/tot*100)+K(Math.round(sd/st*100)+'%','sessões do cronograma',sd/st*100)+K(pc==null?'sem dados':pc+'%','acerto em simulados (meta 70%)',pc,pc==null?'':pc>=70?'ok':'warn')+K((S.p[loc]||0)+' / '+pt,'pomodoros hoje / total',null)}
+// hoje
+function hoje(){const dt=days.find(d=>iso(d)==loc)||(loc<iso(days[0])?days[0]:days[days.length-1]),i=iso(dt),ph=PH(dt);
+$('#hjT').textContent=(i==loc?'Hoje':'Dia de estudo')+', '+dt.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',timeZone:'UTC'});
+$('#hjP').textContent='Fase: '+ph[0]+'. Foco: '+(D[disc(dt)]?.[0]||(dt.getUTCDay()==0?'simulado e revisão semanal':'prova'))+'.';
+$('#hjL').innerHTML=rows(dt);$('#foco').innerHTML=FOCO.map(f=>`<div class="row p"><span>${f}</span></div>`).join('')}
+function rows(dt){const i=iso(dt);return plan(dt).map((s,k)=>s[2]?`<label class="row ${S.d[sk(i,k)]?'done':''}"><input type="checkbox" data-s="${sk(i,k)}" ${S.d[sk(i,k)]?'checked':''}><time>${s[0]}</time><span class="t">${s[1]} <span class="tag">${s[2]} pomodoro${s[2]>1?'s':''}</span></span></label>`:`<div class="row p"><input type="checkbox" disabled style="visibility:hidden"><time>${s[0]}</time><span>${s[1]}</span></div>`).join('')}
+// cronograma
+function crono(){const ws={};days.forEach(d=>{const w=Math.floor((d-start)/(7*DAY));(ws[w]=ws[w]||[]).push(d)});
+$('#cronoL').innerHTML=Object.keys(ws).map(w=>{const a=ws[w],cur=a.some(d=>iso(d)==loc);return`<details ${cur?'open':''}><summary>Semana ${+w+1}: ${a[0].toLocaleDateString('pt-BR',{day:'2-digit',month:'short',timeZone:'UTC'})} a ${a[a.length-1].toLocaleDateString('pt-BR',{day:'2-digit',month:'short',timeZone:'UTC'})} <span class="tag">${PH(a[0])[0]}</span></summary><div>${a.map(d=>`<h2 style="margin-top:12px;font-size:15px">${d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit',timeZone:'UTC'})}</h2>${rows(d)}`).join('')}</div></details>`}).join('')}
+// edital
+function edital(){$('#editalL').innerHTML=D.map((d,x)=>{const c=d[2].filter((_,y)=>S.t[x+'.'+y]).length;return`<details><summary>${d[0]} · peso ${d[1]} <span class="tag">${c}/${d[2].length}</span><div class="bar"><i style="width:${c/d[2].length*100}%"></i></div></summary><div>${d[2].map((t,y)=>`<label class="row"><input type="checkbox" data-e="${x}.${y}" ${S.t[x+'.'+y]?'checked':''}><span>${t}</span></label>`).join('')}</div></details>`}).join('')}
+document.addEventListener('change',e=>{const t=e.target;if(t.dataset.s){S.d[t.dataset.s]=t.checked;t.closest('.row').classList.toggle('done',t.checked)}else if(t.dataset.e){S.t[t.dataset.e]=t.checked;const o=[...document.querySelectorAll('#editalL details')].map(x=>x.open);save();edital();document.querySelectorAll('#editalL details').forEach((x,i)=>x.open=o[i])}else return;save();kpis()});
+// simulados
+const opts='<option value="-1">Simulado geral</option>'+D.map((d,i)=>`<option value="${i}">${d[0]}</option>`).join('');$('#sD').innerHTML=opts;$('#eD').innerHTML=opts.replace('Simulado geral','Disciplina');$('#sDt').value=loc;
+const dn=i=>i<0?'Geral':D[i][0];
+function sim(){$('#sL').innerHTML=S.sim.length?'<table><tr><th>Data</th><th>Prova</th><th>Nota</th><th></th></tr>'+S.sim.map((s,i)=>`<tr><td>${s.dt.slice(5).split('-').reverse().join('/')}</td><td>${dn(s.d)}</td><td>${s.a}/${s.t} <b class="${s.a/s.t>=.7?'ok':'bad'}">${Math.round(s.a/s.t*100)}%</b></td><td><button class="btn" data-ds="${i}" aria-label="Excluir">x</button></td></tr>`).join('')+'</table>':'<p class="sub">Nenhum simulado ainda. Registre o primeiro ao lado.</p>';
+$('#sP').innerHTML=D.map((d,i)=>{const l=S.sim.filter(s=>s.d==i),a=l.reduce((x,s)=>x+s.a,0),t=l.reduce((x,s)=>x+s.t,0);return`<div style="margin-bottom:8px">${d[0]} <b class="${t?(a/t>=.7?'ok':'warn'):''}">${t?Math.round(a/t*100)+'%':'sem dados'}</b><div class="bar"><i style="width:${t?a/t*100:0}%"></i></div></div>`}).join('');
+$('#eL').innerHTML=S.err.map((e,i)=>`<div class="row"><span><span class="tag">${dn(e.d)}</span> <b>${e.a||''}</b><br>${e.x.replace(/</g,'&lt;')}</span><button class="btn" data-de="${i}" aria-label="Excluir">x</button></div>`).join('')||'<p class="sub">Sem erros registrados. Anote aqui cada questão errada.</p>'}
+$('#sAdd').onclick=()=>{const a=+$('#sA').value,t=+$('#sT').value;if(!t||a>t||a<0){alert('Informe acertos e total válidos (acertos não pode passar do total).');return}S.sim.unshift({d:+$('#sD').value,dt:$('#sDt').value||loc,a,t});$('#sA').value=$('#sT').value='';save();sim();kpis()};
+$('#eAdd').onclick=()=>{const x=$('#eT').value.trim();if(!x)return;S.err.unshift({d:+$('#eD').value,a:$('#eA').value,x});$('#eT').value=$('#eA').value='';save();sim()};
+$('#sim').addEventListener('click',e=>{const t=e.target;if(t.dataset.ds){S.sim.splice(t.dataset.ds,1)}else if(t.dataset.de){S.err.splice(t.dataset.de,1)}else return;save();sim();kpis()});
+// pomodoro
+let mode=25,left=1500,iv=null;
+const fmt=()=>{const m=Math.floor(left/60),s=left%60;$('#tm').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');document.title=iv?$('#tm').textContent+' · EPPGG':'EPPGG Bahia 2026'};
+const pcs=()=>$('#pc').textContent='Pomodoros hoje: '+(S.p[loc]||0)+'. A cada 4 focos, faça a pausa longa.';
+function beep(){try{const c=new AudioContext(),o=c.createOscillator();o.connect(c.destination);o.frequency.value=660;o.start();o.stop(c.currentTime+.5)}catch(e){}}
+function stop(){clearInterval(iv);iv=null;$('#go').textContent='Iniciar'}
+document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{stop();mode=+b.dataset.m;left=mode*60;fmt()});
+$('#go').onclick=()=>{if(iv){stop();fmt();return}$('#go').textContent='Pausar';iv=setInterval(()=>{left--;if(left<=0){const f=mode==25;stop();left=0;beep();if(f){S.p[loc]=(S.p[loc]||0)+1;save();pcs();kpis()}alert(f?'Foco concluído. Faça uma pausa.':'Pausa encerrada. Volte ao foco.')}fmt()},1000)};
+$('#rs').onclick=()=>{stop();left=mode*60;fmt()};
+// música
+const yt=id=>$('#yt').src='https://www.youtube-nocookie.com/embed/'+id;
+document.querySelectorAll('[data-y]').forEach(b=>b.onclick=()=>yt(b.dataset.y));
+$('#yu').onchange=e=>{const v=e.target.value,l=v.match(/[?&]list=([\w-]+)/),i=v.match(/(?:v=|youtu\.be\/)([\w-]{11})/);if(l)$('#yt').src='https://www.youtube-nocookie.com/embed/videoseries?list='+l[1];else if(i)yt(i[1]);else alert('Link do YouTube não reconhecido.')};
+$('#nt').value=S.n;$('#nt').oninput=e=>{S.n=e.target.value;save()};
+
+const Q=[[10,"Segundo a Lei de Responsabilidade Fiscal, considera-se despesa obrigatória de caráter continuado aquela que fixa ao ente a obrigação legal de execução por período superior a",["um exercício","dois exercícios","três exercícios","quatro exercícios","cinco exercícios"],1,"LRF, art. 17: período superior a dois exercícios."],
+[9,"No modelo dos Múltiplos Fluxos (Kingdon), a entrada de um tema na agenda decorre da convergência dos fluxos de",["problemas, soluções e política","receitas, despesas e metas","atores, regras e recursos","demandas, produtos e impactos","planejamento, execução e controle"],0,"Problemas, soluções (alternativas) e política se unem numa janela de oportunidade."],
+[10,"Para atender despesas urgentes e imprevisíveis, como as decorrentes de calamidade pública, o instrumento orçamentário adequado é o crédito",["suplementar","especial","extraordinário","ordinário","reaberto por emenda"],2,"CF, art. 167, §3º, e Lei 4.320/1964: crédito extraordinário."],
+[2,"A Lei federal nº 14.133/2021 NÃO prevê, como modalidade de licitação, a",["concorrência","pregão","diálogo competitivo","tomada de preços","leilão"],3,"Tomada de preços e convite foram extintos; restam concorrência, concurso, leilão, pregão e diálogo competitivo."],
+[1,"De acordo com o art. 37 da Constituição Federal, o prazo de validade do concurso público é de até",["um ano, sem prorrogação","dois anos, prorrogável uma vez por igual período","dois anos, prorrogável duas vezes","três anos, sem prorrogação","quatro anos, prorrogável uma vez"],1,"CF, art. 37, III: até dois anos, prorrogável uma vez por igual período."],
+[7,"Qual perspectiva NÃO integra o Balanced Scorecard original?",["Financeira","Clientes","Processos internos","Aprendizado e crescimento","Fornecedores"],4,"As quatro perspectivas são financeira, clientes, processos internos e aprendizado e crescimento."]];
+$('#pa').innerHTML=D.map(d=>`<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('cesgranrio prova questões '+d[0])}">${d[0]}</a>`).join('');
+$('#mq').innerHTML=Q.map((q,i)=>`<fieldset style="border:1px solid var(--line);border-radius:10px;margin:0 0 8px"><legend>${i+1}. ${D[q[0]][0]}</legend><p>${q[1]}</p>${q[2].map((o,j)=>`<label class="row"><input type="radio" name="q${i}" value="${j}"><span>(${'ABCDE'[j]}) ${o}</span></label>`).join('')}</fieldset>`).join('');
+$('#mGo').onclick=()=>{let a=0,h='';Q.forEach((q,i)=>{const r=document.querySelector(`input[name=q${i}]:checked`),ok=r&&+r.value==q[3];if(ok)a++;else S.err.unshift({d:q[0],a:'Mini-simulado, questão '+(i+1),x:'Gabarito '+'ABCDE'[q[3]]+'. '+q[4]});h+=`<p class="${ok?'ok':'bad'}">${i+1}: ${ok?'certa':'errada, gabarito '+'ABCDE'[q[3]]}. ${q[4]}</p>`});S.sim.unshift({d:-1,dt:loc,a,t:Q.length});save();sim();kpis();$('#mR').innerHTML='<b>'+a+' de '+Q.length+'</b>'+h};
+kpis();hoje();crono();edital();sim();pcs();fmt();tab('hoje');
+</script></body></html>
