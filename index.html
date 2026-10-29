@@ -1,188 +1,2393 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>EPPGG Bahia 2026 · Painel de estudos</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#08130f">
+<title>Dashboard SAEB · EPPGG</title>
 <style>
-:root{--bg:#eef2ff;--panel:#fff;--line:#c9d3f5;--ink:#10173a;--mute:#56608f;--c1:#0a7fb3;--c2:#6552e0;--ok:#0f9d6b;--warn:#b86a00;--bad:#d1294f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(900px 500px at 85% -10%,#e0d7ff99,transparent),radial-gradient(700px 400px at -10% 10%,#c7e3ff99,transparent),var(--bg);color:var(--ink);font:400 15px/1.5 'Space Grotesk',system-ui,sans-serif}
-main{max-width:1050px;margin:auto;padding:16px}
-h1{font-size:clamp(22px,4vw,32px);margin:4px 0 2px;letter-spacing:-.5px}
-h2{font-size:18px;margin:0 0 10px}
-.sub{color:var(--mute);margin:0 0 14px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
-.k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
-.k b{display:block;font-size:26px;color:var(--c1);line-height:1.1}
-.k span{color:var(--mute);font-size:13px}
-.bar{height:7px;background:#1b2a6b1f;border-radius:9px;overflow:hidden;margin-top:6px}
-.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--c1),var(--c2));border-radius:9px;transition:width .4s}
-nav{display:flex;gap:6px;overflow-x:auto;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5}
-nav button,.btn{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font:500 14px 'Space Grotesk',sans-serif;cursor:pointer;white-space:nowrap}
-nav button.on,.btn.pri{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border-color:transparent;font-weight:700}
-button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--c1);outline-offset:2px}
-section{display:none}section.on{display:block}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-.row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
-.row:last-child{border:0}
-.row.p{color:var(--mute);font-size:13px}
-.row time{min-width:48px;color:var(--c1);font-weight:700}
-.row.done .t{text-decoration:line-through;color:var(--mute)}
-input[type=checkbox]{width:19px;height:19px;accent-color:var(--c1);flex:none;margin-top:2px}
-input,select,textarea{background:#f4f6ff;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:8px;font:inherit;max-width:100%}
-textarea{width:100%;min-height:120px}
-.tag{font-size:12px;padding:2px 8px;border-radius:20px;background:#9b8cff2e;color:var(--c2)}
-details{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:var(--panel)}
-summary{padding:10px 14px;cursor:pointer;font-weight:500}
-details>div{padding:0 14px 10px}
-.timer{font-size:clamp(54px,14vw,84px);font-weight:700;text-align:center;color:var(--c1);letter-spacing:2px;}
-.ctr{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
-iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
-.tbl{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px;border-bottom:1px solid var(--line);text-align:left}
-.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style></head><body><main>
-<h1>EPPGG Bahia 2026</h1>
-<p class="sub">Especialista em Políticas Públicas e Gestão Governamental · SAEB/Cesgranrio · prova em 10/01/2027</p>
-<div class="kpis" id="kpis"></div>
-<nav id="nav"></nav>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #08130f;
+    color: #e0f0e8;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #08130f; }
+  ::-webkit-scrollbar-thumb { background: #1a3a2a; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #2a5a3f; }
 
-<section id="hoje">
-<div class="grid"><div class="card"><h2 id="hjT">Hoje</h2><p class="sub" id="hjP"></p><div id="hjL"></div></div>
-<div class="card"><h2>Foco da banca</h2><div id="foco"></div></div></div>
-</section>
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #0d1f18 0%, #0a1810 100%);
+    border-right: 1px solid #1a3a2a;
+    padding: 1.5rem 0;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+  .sidebar .logo {
+    text-align: center;
+    padding: 0 1rem 1.5rem;
+    border-bottom: 1px solid #1a3a2a;
+    margin-bottom: 1rem;
+  }
+  .sidebar .logo h2 {
+    font-size: 1rem;
+    background: linear-gradient(135deg, #00e6a0, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+  }
+  .sidebar .logo p { font-size: 0.7rem; color: #5a8a6f; margin-top: 4px; }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #7a9a8a;
+    font-size: 0.95rem;
+    border-left: 3px solid transparent;
+    min-height: 52px;
+    user-select: none;
+  }
+  .nav-item:hover, .nav-item:active { background: rgba(0, 230, 160, 0.08); color: #c0e0d0; }
+  .nav-item.active {
+    background: rgba(0, 230, 160, 0.12);
+    color: #00e6a0;
+    border-left-color: #00e6a0;
+  }
+  .nav-item .icon { font-size: 1.3rem; width: 28px; text-align: center; }
 
-<section id="crono"><p class="sub">Domingo a domingo, de 06/10/2026 até a prova. Cada dia tem teoria, questões, revisão (dia anterior e 7 dias antes) e pausas.</p><div id="cronoL"></div></section>
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(2px);
+    z-index: 99;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .sidebar-overlay.active { display: block; opacity: 1; }
 
-<section id="edital"><p class="sub">Edital verticalizado: marque cada tópico estudado. Peso = pontos da prova objetiva (160 no total; corte 112).</p><div id="editalL"></div></section>
+  .menu-toggle {
+    display: none;
+    position: fixed;
+    top: 12px; left: 12px;
+    z-index: 101;
+    background: linear-gradient(135deg, #0d1f18, #1a3a2a);
+    border: 1px solid #00e6a044;
+    color: #c0e0d0;
+    font-size: 1.5rem;
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    min-width: 48px;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+  }
 
-<section id="sim">
-<div class="grid"><div class="card"><h2>Registrar simulado</h2>
-<p><select id="sD"></select> <input type="date" id="sDt"></p>
-<p>Acertos <input type="number" id="sA" min="0" style="width:80px"> de <input type="number" id="sT" min="1" style="width:80px"> <button class="btn pri" id="sAdd">Salvar resultado</button></p>
-<div class="tbl" id="sL"></div></div>
-<div class="card"><h2>Desempenho por disciplina</h2><div id="sP"></div></div></div>
-<div class="grid"><div class="card"><h2>Provas anteriores da banca</h2>
-<p class="sub">Não reproduzo questões de provas da Cesgranrio (direitos autorais). Estes links levam às provas originais:</p>
-<p><a class="btn pri" target="_blank" rel="noopener" href="https://www.cesgranrio.org.br/concurso/concurso-eppgg-bahia-2026/">Página do concurso</a></p><div class="ctr" id="pa" style="justify-content:flex-start"></div></div>
-<div class="card"><h2>Mini-simulado estilo Cesgranrio</h2>
-<p class="sub">Questões de autoria própria, no formato da banca (5 alternativas). Ao corrigir, o resultado entra nos simulados e os erros no caderno.</p><div id="mq"></div><p><button class="btn pri" id="mGo">Corrigir e registrar</button></p><div id="mR"></div></div></div>
-<div class="card"><h2>Caderno de erros</h2>
-<p><select id="eD"></select> <input id="eA" placeholder="Assunto" style="width:min(220px,100%)"></p>
-<textarea id="eT" placeholder="O que errei e por quê? Qual é a regra certa?" style="min-height:70px"></textarea>
-<p><button class="btn pri" id="eAdd">Salvar erro</button></p><div id="eL"></div></div>
-</section>
+  /* ===== MAIN ===== */
+  .main {
+    margin-left: 260px;
+    flex: 1;
+    padding: 1.5rem 2rem 4rem;
+    max-width: 1300px;
+    width: 100%;
+  }
 
-<section id="foc">
-<div class="grid"><div class="card"><h2>Pomodoro</h2>
-<div class="ctr"><button class="btn pri" data-m="25">Foco 25</button><button class="btn" data-m="5">Pausa 5</button><button class="btn" data-m="15">Pausa longa 15</button></div>
-<div class="timer" id="tm">25:00</div>
-<div class="ctr"><button class="btn pri" id="go">Iniciar</button><button class="btn" id="rs">Zerar</button></div>
-<p class="sub" style="text-align:center" id="pc"></p></div>
-<div class="card"><h2>Música para estudar</h2>
-<div class="ctr"><button class="btn" data-y="jfKfPfyJRdk">Lo-fi ao vivo</button>
-<a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=rain+sounds+for+studying">Som de chuva</a>
-<a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=40hz+gamma+binaural+beats+focus">Frequência 40 Hz</a>
-<a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=study+music+playlist">Playlists</a></div>
-<iframe id="yt" title="Player do YouTube" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-<p><input id="yu" placeholder="Cole um link de vídeo ou playlist do YouTube" style="width:100%"></p>
-<p class="sub">Os links de busca abrem no YouTube. Escolha o que gostar, copie o link e cole acima para tocar aqui.</p></div></div>
-<div class="card"><h2>Anotações do aprendizado</h2>
-<textarea id="nt" placeholder="Resumos, dúvidas, pontos fracos…"></textarea>
-<p class="sub">Para uma memória contínua com IA, envie edital, resumos e erros como fontes no NotebookLM e peça um resumo semanal.</p>
-<a class="btn" target="_blank" rel="noopener" href="https://notebooklm.google.com">Abrir NotebookLM</a></div>
-</section>
+  .card {
+    background: linear-gradient(135deg, #0d1f18 0%, #152a20 100%);
+    border: 1px solid #1a3a2a;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00e6a0, #d4af37, #00e6a0);
+    opacity: 0.7;
+  }
+  .card h3 {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #d4af37;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* ===== COUNTDOWN ===== */
+  .countdown-card {
+    background: linear-gradient(135deg, #0d1f18 0%, #1a2e10 50%, #0d1f18 100%);
+    border: 1px solid #d4af3766;
+    border-radius: 18px;
+    padding: 1.8rem 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(212, 175, 55, 0.12);
+  }
+  .countdown-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00e6a0, #d4af37, #00e6a0, #d4af37);
+    background-size: 200% 100%;
+    animation: gradientShift 4s linear infinite;
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  .countdown-card .cd-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #d4af37;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .countdown-card .cd-days {
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, #00e6a0, #d4af37, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0.2rem 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown-card .cd-days-unit {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #c0e0d0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .countdown-card .cd-date {
+    font-size: 0.85rem;
+    color: #7a9a8a;
+    margin-top: 0.6rem;
+    line-height: 1.5;
+  }
+  .countdown-card .cd-date strong { color: #00e6a0; }
+  .cd-mini-grid {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .cd-mini {
+    background: #05100a;
+    border: 1px solid #1a3a2a;
+    border-radius: 12px;
+    padding: 0.7rem 0.9rem;
+    min-width: 72px;
+    text-align: center;
+  }
+  .cd-mini .v {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #d4af37;
+    font-variant-numeric: tabular-nums;
+  }
+  .cd-mini .l {
+    font-size: 0.6rem;
+    color: #5a8a6f;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
+  }
+  .cd-message {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    color: #7a9a8a;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .cd-message.urgent { color: #ff8a3d; font-weight: 600; }
+  .cd-message.done { color: #00ff88; font-weight: 600; }
+
+  /* ===== STREAK CARD ===== */
+  .streak-card {
+    background: linear-gradient(135deg, #1a1005 0%, #2a1810 50%, #1a1005 100%);
+    border: 1px solid #ff9d0066;
+    border-radius: 18px;
+    padding: 1.5rem 1.2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(255, 157, 0, 0.12);
+    text-align: center;
+  }
+  .streak-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #d4af37, #ff9d00, #ffd700, #d4af37);
+    background-size: 200% 100%;
+    animation: gradientShift 4s linear infinite;
+  }
+  .streak-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+  }
+  .streak-title {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #ffd700;
+    font-weight: 700;
+  }
+  .streak-integrity {
+    font-size: 1.1rem;
+    color: #00ff88;
+    cursor: help;
+  }
+  .streak-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 0.8rem 0;
+  }
+  .streak-big {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+  }
+  .streak-fire {
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+    animation: flicker 1.5s ease-in-out infinite alternate;
+  }
+  @keyframes flicker {
+    0% { transform: scale(1) rotate(-3deg); filter: brightness(1); }
+    100% { transform: scale(1.1) rotate(3deg); filter: brightness(1.2); }
+  }
+  .streak-num {
+    font-size: 4.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffd700, #ff9d00, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .streak-unit {
+    font-size: 0.85rem;
+    color: #e0f0e8;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+    font-weight: 600;
+  }
+  .streak-side {
+    display: flex;
+    gap: 1.2rem;
+  }
+  .streak-stat {
+    background: #0a0500;
+    border: 1px solid #3a2a10;
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    min-width: 80px;
+    text-align: center;
+  }
+  .streak-stat-num {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffd700;
+    font-variant-numeric: tabular-nums;
+  }
+  .streak-stat-lbl {
+    display: block;
+    font-size: 0.6rem;
+    color: #8a7040;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
+  }
+  .streak-heatmap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 1rem auto 0;
+    justify-content: center;
+    padding: 0.6rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    max-width: 100%;
+  }
+  .heatmap-day {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background: #1a1a10;
+    border: 1px solid #0f0f05;
+    transition: all 0.2s;
+  }
+  .heatmap-day.active {
+    background: linear-gradient(135deg, #ff9d00, #ffd700);
+    box-shadow: 0 0 8px rgba(255, 157, 0, 0.4);
+    border-color: #ff9d00;
+  }
+  .heatmap-day.today {
+    outline: 2px solid #ffffff;
+    outline-offset: 1px;
+  }
+  .streak-message {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #ffd700;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .streak-mark-btn {
+    display: block;
+    margin: 1.2rem auto 0;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, #ff9d00, #d4af37);
+    color: #1a1005;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    min-height: 56px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 4px 24px rgba(255, 157, 0, 0.45);
+    letter-spacing: 0.5px;
+    user-select: none;
+  }
+  .streak-mark-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(255, 157, 0, 0.6); }
+  .streak-mark-btn:active { transform: scale(0.97); }
+  .streak-mark-btn.marked, .streak-mark-btn:disabled {
+    background: linear-gradient(135deg, #0a2a1a, #1a3a2a);
+    color: #6aff8a;
+    cursor: not-allowed;
+    box-shadow: none;
+    border: 1px solid #00ff8866;
+  }
+
+  .streak-reset-btn {
+    display: block;
+    margin: 0.8rem auto 0;
+    padding: 10px 20px;
+    background: transparent;
+    color: #8a7040;
+    border: 1px solid #3a2a10;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    min-height: 42px;
+    width: 100%;
+    max-width: 420px;
+    letter-spacing: 0.3px;
+    user-select: none;
+  }
+  .streak-reset-btn:hover {
+    color: #ff9d00;
+    border-color: #ff9d0066;
+    background: rgba(255, 157, 0, 0.06);
+  }
+  .streak-reset-btn:active { transform: scale(0.98); }
+
+  /* ===== DASH GRID ===== */
+  .dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: linear-gradient(135deg, #0d1f18, #162a20);
+    border: 1px solid #1a3a2a;
+    border-radius: 14px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .stat-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00e6a0, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-card .label { font-size: 0.72rem; color: #5a8a6f; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .stat-card .sub { font-size: 0.7rem; color: #3a6a4f; margin-top: 2px; }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #05100a;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00e6a0, #d4af37);
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .progress-fill.green { background: linear-gradient(90deg, #00e6a0, #00ffb2); }
+
+  /* ===== WEEK SELECTOR ===== */
+  .week-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+  .week-btn {
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #1a3a2a;
+    background: #0d1f18;
+    color: #7a9a8a;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 100px;
+    min-height: 60px;
+    flex: 1 1 auto;
+    user-select: none;
+  }
+  .week-btn:active { transform: scale(0.97); }
+  .week-btn.active {
+    border-color: #00e6a0;
+    color: #00e6a0;
+    background: rgba(0,230,160,0.08);
+    box-shadow: 0 0 20px rgba(0,230,160,0.15);
+  }
+  .week-btn .wb-label { font-size: 0.88rem; }
+  .week-btn .wb-period { font-size: 0.68rem; color: #5a8a6f; font-weight: 400; }
+  .week-btn .wb-progress { font-size: 0.68rem; color: #3a8f5a; font-weight: 700; margin-top: 2px; }
+  .week-btn.active .wb-progress { color: #00ffb2; }
+
+  .week-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #1a3a2a;
+  }
+  .week-header h3 { margin: 0; }
+  .week-header .week-stats {
+    font-size: 0.78rem;
+    color: #7a9a8a;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .week-header .week-stats span strong { color: #00e6a0; }
+
+  .day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .day-card {
+    background: #0a1810;
+    border: 1px solid #1a3a2a;
+    border-radius: 14px;
+    padding: 1rem;
+  }
+  .day-card.complete { border-color: #00e6a055; background: linear-gradient(135deg, #0a1810, #0f2a1f); }
+  .day-card .day-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #c0e0d0;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #1a3a2a;
+  }
+  .day-card .day-title .day-progress {
+    font-size: 0.75rem;
+    color: #5a8a6f;
+    font-weight: 400;
+  }
+  .day-card .day-title .day-progress.done { color: #00ffb2; font-weight: 700; }
+
+  .session-block {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #05100a;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-items: flex-start;
+    border: 1px solid transparent;
+    min-height: 60px;
+    user-select: none;
+  }
+  .session-block:active { transform: scale(0.99); }
+  .session-block.checked { background: linear-gradient(135deg, #0a2a1a, #0d2035); border-color: #00e6a044; }
+  .session-block.checked .session-label { color: #00ffb2; text-decoration: line-through; }
+  .session-block.checked .session-tags .subject-tag { opacity: 0.55; }
+  .session-block input[type="checkbox"] {
+    width: 24px; height: 24px;
+    accent-color: #00e6a0;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .session-content { flex: 1; }
+  .session-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #d4af37;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .session-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .subject-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+  .tag-port { background: #1a3a5f; color: #6ab0ff; }
+  .tag-dir { background: #3a1a4a; color: #c07aff; }
+  .tag-adm { background: #1a4a2a; color: #6aff8a; }
+  .tag-etica { background: #4a3a1a; color: #ffd46a; }
+  .tag-div { background: #4a1a4a; color: #ff8aff; }
+  .tag-eco { background: #1a3a4a; color: #6ad4ff; }
+  .tag-gest { background: #4a2a1a; color: #ffaa6a; }
+  .tag-plan { background: #2a4a1a; color: #9aff6a; }
+  .tag-pol { background: #4a1a2a; color: #ff6a9a; }
+  .tag-fin { background: #1a4a4a; color: #6affd4; }
+  .tag-sim { background: #4a3a2a; color: #ffce6a; }
+  .tag-rev { background: #3a3a1a; color: #d4d46a; }
+
+  .week-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .week-actions .btn { flex: 1 1 160px; }
+
+  .week-notes {
+    width: 100%;
+    min-height: 120px;
+    background: #05100a;
+    border: 1px solid #1a3a2a;
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: #c0e0d0;
+    font-family: inherit;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    resize: vertical;
+  }
+  .week-notes:focus { outline: none; border-color: #00e6a0; }
+  .week-notes::placeholder { color: #3a6a4f; }
+
+  .btn {
+    padding: 14px 22px;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    min-height: 48px;
+    user-select: none;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: linear-gradient(135deg, #00e6a0, #d4af37); color: #08130f; }
+  .btn-secondary { background: #1a3a2a; color: #a0c0b0; }
+  .btn-sm { padding: 10px 16px; font-size: 0.85rem; min-height: 44px; }
+  .btn-success { background: linear-gradient(135deg, #00ffb2, #00e6a0); color: #062018; }
+
+  .disc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .disc-card {
+    background: #0a1810;
+    border: 1px solid #1a3a2a;
+    border-radius: 14px;
+    padding: 1.2rem;
+  }
+  .disc-card .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .disc-card .header h4 { font-size: 0.95rem; color: #c0e0d0; }
+  .disc-card .header .badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #1a3a2a;
+    color: #d4af37;
+    font-weight: 600;
+  }
+  .disc-card .topics { list-style: none; font-size: 0.85rem; color: #7a9a8a; }
+  .disc-card .topics li {
+    padding: 10px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+    border-bottom: 1px solid #0f2a1a;
+    min-height: 44px;
+    user-select: none;
+    line-height: 1.4;
+  }
+  .disc-card .topics li:active { background: rgba(0,230,160,0.04); }
+  .disc-card .topics li.done { color: #3a8f5a; text-decoration: line-through; }
+  .disc-card .topics li .check {
+    width: 22px; height: 22px;
+    border: 1.5px solid #2a5a3f;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+  .disc-card .topics li.done .check {
+    background: #00e6a0;
+    border-color: #00e6a0;
+    color: #08130f;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .tabs::-webkit-scrollbar { height: 4px; }
+  .tab-btn {
+    padding: 12px 18px;
+    border: 1px solid #1a3a2a;
+    border-radius: 10px;
+    background: #0d1f18;
+    color: #7a9a8a;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: inherit;
+    white-space: nowrap;
+    min-height: 44px;
+    user-select: none;
+  }
+  .tab-btn:active { transform: scale(0.97); }
+  .tab-btn.active { color: #00e6a0; border-color: #00e6a0; background: rgba(0,230,160,0.08); }
+
+  .info-box {
+    background: rgba(0, 230, 160, 0.05);
+    border: 1px solid rgba(0, 230, 160, 0.15);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    font-size: 0.88rem;
+    color: #7a9a8a;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+  .info-box strong { color: #00e6a0; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .pomodoro-box { text-align: center; padding: 1.5rem 0.5rem; }
+  .pomodoro-timer {
+    font-size: 4rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(135deg, #00e6a0, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0.5rem 0;
+    letter-spacing: 4px;
+  }
+  .pomodoro-label { font-size: 0.85rem; color: #5a8a6f; text-transform: uppercase; letter-spacing: 2px; }
+  .pomodoro-controls { display: flex; gap: 10px; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
+  .pomodoro-controls .btn { flex: 1 1 140px; }
+
+  .music-options { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .music-btn {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #1a3a2a;
+    background: #0d1f18;
+    color: #7a9a8a;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    font-family: inherit;
+    min-height: 48px;
+    flex: 1 1 auto;
+    user-select: none;
+  }
+  .music-btn:active { transform: scale(0.97); }
+  .music-btn.active { border-color: #00e6a0; color: #00e6a0; background: rgba(0,230,160,0.06); }
+  #yt-player iframe { border-radius: 12px; display: block; }
+
+  .simulado-question {
+    background: #0a1810;
+    border: 1px solid #1a3a2a;
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .simulado-question .q-text { font-size: 0.92rem; color: #c0e0d0; margin-bottom: 0.9rem; line-height: 1.65; }
+  .simulado-question .q-options { display: flex; flex-direction: column; gap: 8px; }
+  .simulado-question .q-option {
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #05100a;
+    border: 1px solid #1a3a2a;
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: #a0c0b0;
+    transition: all 0.2s;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+  .simulado-question .q-option:active { transform: scale(0.99); }
+  .simulado-question .q-option.correct { background: #0a2a1a; border-color: #00e6a0; color: #6aff8a; }
+  .simulado-question .q-option.wrong { background: #2a0a1a; border-color: #ff2d55; color: #ff6a8a; }
+  .simulado-question .q-feedback { margin-top: 10px; font-size: 0.82rem; color: #d4af37; display: none; line-height: 1.6; }
+  .simulado-question .q-feedback.show { display: block; }
+
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #a0c0b0;
+    min-height: 48px;
+    user-select: none;
+  }
+  .checklist-item:active { background: rgba(0,230,160,0.04); }
+  .checklist-item input[type="checkbox"] { width: 22px; height: 22px; accent-color: #00e6a0; cursor: pointer; }
+  .checklist-item.checked { color: #3a8f5a; }
+
+  .memory-entry {
+    background: #0a1810;
+    border-left: 3px solid #d4af37;
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+    color: #7a9a8a;
+    line-height: 1.55;
+    word-wrap: break-word;
+  }
+  .memory-entry .timestamp { font-size: 0.7rem; color: #3a6a4f; }
+
+  input[type="text"], select {
+    background: #05100a;
+    color: #c0e0d0;
+    border: 1px solid #1a3a2a;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    min-height: 48px;
+    width: 100%;
+  }
+  input[type="text"]:focus, select:focus { outline: none; border-color: #00e6a0; }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: linear-gradient(135deg, #0d1f18, #1a3a2a);
+    border: 1px solid #00e6a044;
+    border-radius: 12px;
+    padding: 14px 22px;
+    color: #c0e0d0;
+    font-size: 0.88rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    max-width: 90vw;
+    text-align: center;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    font-size: 0.75rem;
+    color: #3a6a4f;
+    border-top: 1px solid #1a3a2a;
+    margin-top: 2rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 900px) { .main { padding: 1.2rem 1rem 5rem; } }
+
+  @media (max-width: 768px) {
+    body { font-size: 15px; }
+    .menu-toggle { display: flex; }
+    .sidebar {
+      transform: translateX(-100%);
+      width: 280px;
+      padding-top: 5rem;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.5);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; padding: 4.5rem 0.9rem 5rem; max-width: 100%; }
+    .dash-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+    .stat-card { padding: 0.9rem 0.6rem; }
+    .stat-card .value { font-size: 1.5rem; }
+    .stat-card .label { font-size: 0.65rem; }
+    .stat-card .sub { font-size: 0.62rem; }
+    .pomodoro-timer { font-size: 3rem; letter-spacing: 2px; }
+    .day-grid { grid-template-columns: 1fr; }
+    .countdown-card { padding: 1.4rem 0.8rem; }
+    .countdown-card .cd-days { font-size: 3.6rem; }
+    .countdown-card .cd-days-unit { font-size: 1rem; }
+    .cd-mini-grid { gap: 0.5rem; }
+    .cd-mini { padding: 0.5rem 0.7rem; min-width: 64px; }
+    .cd-mini .v { font-size: 1.15rem; }
+    .cd-mini .l { font-size: 0.55rem; letter-spacing: 1px; }
+    .streak-main { gap: 1.2rem; }
+    .streak-num { font-size: 3.5rem; }
+    .streak-fire { font-size: 1.6rem; }
+    .streak-side { gap: 0.8rem; }
+    .streak-stat { padding: 0.5rem 0.8rem; min-width: 70px; }
+    .streak-stat-num { font-size: 1.2rem; }
+    .heatmap-day { width: 14px; height: 14px; }
+    .streak-mark-btn { font-size: 0.9rem; padding: 14px 20px; min-height: 52px; }
+    .streak-reset-btn { font-size: 0.72rem; padding: 9px 16px; }
+    .week-selector { gap: 6px; }
+    .week-btn { min-width: 90px; padding: 10px 10px; flex: 1 1 calc(50% - 6px); }
+    .week-btn .wb-label { font-size: 0.8rem; }
+    .week-btn .wb-period { font-size: 0.62rem; }
+    .week-btn .wb-progress { font-size: 0.62rem; }
+    .card { padding: 1rem; border-radius: 14px; }
+    .card h3 { font-size: 0.85rem; letter-spacing: 1px; }
+    .main h2 { font-size: 1.15rem !important; }
+    .disc-grid { grid-template-columns: 1fr; }
+    .music-btn { flex: 1 1 calc(50% - 6px); }
+    .pomodoro-controls .btn { flex: 1 1 100%; }
+    .week-actions .btn { flex: 1 1 100%; }
+    .week-header { flex-direction: column; align-items: flex-start; }
+    .week-header h3 { font-size: 0.9rem; }
+    .info-box { font-size: 0.82rem; padding: 0.9rem 1rem; }
+  }
+
+  @media (max-width: 420px) {
+    .dash-grid { grid-template-columns: 1fr; }
+    .countdown-card .cd-days { font-size: 3rem; }
+    .streak-num { font-size: 3rem; }
+    .music-btn { flex: 1 1 100%; }
+    .main { padding: 4.2rem 0.7rem 5rem; }
+    .tab-btn { font-size: 0.8rem; padding: 10px 14px; }
+    .heatmap-day { width: 12px; height: 12px; }
+    .streak-mark-btn { font-size: 0.85rem; padding: 14px 16px; }
+    .streak-reset-btn { font-size: 0.7rem; padding: 8px 14px; }
+  }
+
+  @media (max-width: 900px) and (orientation: landscape) {
+    .sidebar { padding-top: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<button class="menu-toggle" id="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menu">☰</button>
+
+<nav class="sidebar" id="sidebar">
+  <div class="logo">
+    <h2>SAEB · EPPGG</h2>
+    <p>Edital 04/2026 · Cesgranrio</p>
+  </div>
+  <div class="nav-item active" onclick="showSection('dashboard', this)">
+    <span class="icon">📊</span> Dashboard
+  </div>
+  <div class="nav-item" onclick="showSection('cronograma', this)">
+    <span class="icon">📅</span> Cronograma & Registro
+  </div>
+  <div class="nav-item" onclick="showSection('edital', this)">
+    <span class="icon">📋</span> Edital Verticalizado
+  </div>
+  <div class="nav-item" onclick="showSection('simulados', this)">
+    <span class="icon">✏️</span> Simulados
+  </div>
+  <div class="nav-item" onclick="showSection('pomodoro', this)">
+    <span class="icon">🍅</span> Pomodoro
+  </div>
+  <div class="nav-item" onclick="showSection('musica', this)">
+    <span class="icon">🎵</span> Música & Foco
+  </div>
+  <div class="nav-item" onclick="showSection('memoria', this)">
+    <span class="icon">🧠</span> Caderno de Aprendizado
+  </div>
+</nav>
+
+<main class="main" id="main">
+
+  <section id="dashboard" class="section active">
+    <h2 style="font-size:1.3rem; color:#c0e0d0; margin-bottom:1.2rem;">📊 Dashboard de Desempenho</h2>
+
+    <div class="countdown-card">
+      <div class="cd-label">⏳ Faltam para a prova</div>
+      <div class="cd-days" id="cd-days">--</div>
+      <div class="cd-days-unit" id="cd-days-unit">dias</div>
+      <div class="cd-date" id="cd-date">Carregando...</div>
+      <div class="cd-mini-grid">
+        <div class="cd-mini"><div class="v" id="cd-hours">--</div><div class="l">Horas</div></div>
+        <div class="cd-mini"><div class="v" id="cd-minutes">--</div><div class="l">Minutos</div></div>
+        <div class="cd-mini"><div class="v" id="cd-seconds">--</div><div class="l">Segundos</div></div>
+      </div>
+      <div class="cd-message" id="cd-message"></div>
+    </div>
+
+    <div class="streak-card" id="streak-card">
+      <div class="streak-header">
+        <span class="streak-title">🔥 Constância de Estudos</span>
+        <span class="streak-integrity" id="streak-integrity" title="Verificando...">✓</span>
+      </div>
+      <div class="streak-main">
+        <div class="streak-big">
+          <div class="streak-fire">🔥</div>
+          <div class="streak-num" id="streak-current">0</div>
+          <div class="streak-unit">dias seguidos</div>
+        </div>
+        <div class="streak-side">
+          <div class="streak-stat">
+            <span class="streak-stat-num" id="streak-best">0</span>
+            <span class="streak-stat-lbl">Recorde</span>
+          </div>
+          <div class="streak-stat">
+            <span class="streak-stat-num" id="streak-total">0</span>
+            <span class="streak-stat-lbl">Total</span>
+          </div>
+        </div>
+      </div>
+      <div class="streak-heatmap" id="streak-heatmap"></div>
+      <div class="streak-message" id="streak-message">Carregando...</div>
+
+      <button class="streak-mark-btn" id="streak-mark-btn" onclick="markTodayManually()">
+        🔥 Marcar hoje como dia de estudo
+      </button>
+
+      <button class="streak-reset-btn" onclick="resetStreakWithPassword()">
+        🔒 Resetar constância
+      </button>
+    </div>
+
+    <div class="dash-grid">
+      <div class="stat-card">
+        <div class="value" id="stat-progress">0%</div>
+        <div class="label">Progresso do Edital</div>
+        <div class="sub">tópicos concluídos</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="stat-sessoes">0/0</div>
+        <div class="label">Sessões Concluídas</div>
+        <div class="sub" id="stat-sessoes-sub">na semana atual</div>
+        <div class="progress-bar"><div class="progress-fill green" id="sessoes-fill" style="width:0%"></div></div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="stat-semanas">0</div>
+        <div class="label">Semanas Finalizadas</div>
+        <div class="sub">de 10 semanas</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="stat-acertos">0</div>
+        <div class="label">Acertos em Simulados</div>
+        <div class="sub" id="stat-sim-total">0 questões</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="stat-erros">0</div>
+        <div class="label">Erros em Simulados</div>
+        <div class="sub">revisar temas</div>
+      </div>
+      <div class="stat-card">
+        <div class="value" id="stat-pomodoros">0</div>
+        <div class="label">Pomodoros</div>
+        <div class="sub">concluídos</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📅 Progresso Semanal Detalhado</h3>
+      <div id="weekly-progress"></div>
+    </div>
+
+    <div class="card">
+      <h3>📈 Desempenho por Disciplina</h3>
+      <div id="disc-performance"></div>
+    </div>
+
+    <div class="card">
+      <h3>🗒️ Registro da Semana Atual</h3>
+      <div id="current-week-register" style="font-size:0.88rem; color:#7a9a8a; line-height:1.7;"></div>
+    </div>
+
+    <div class="card">
+      <h3>📌 Metadados do Concurso</h3>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:0.8rem; font-size:0.85rem;">
+        <div><span style="color:#5a8a6f;">Cargo:</span> <strong style="color:#c0e0d0;">Especialista em Políticas Públicas e Gestão Governamental</strong></div>
+        <div><span style="color:#5a8a6f;">Vagas:</span> <strong style="color:#c0e0d0;">50 (33 AC · 15 Negros · 2 PcD)</strong></div>
+        <div><span style="color:#5a8a6f;">Remuneração:</span> <strong style="color:#c0e0d0;">R$ 10.860,62</strong></div>
+        <div><span style="color:#5a8a6f;">Taxa:</span> <strong style="color:#c0e0d0;">R$ 220,00</strong></div>
+        <div><span style="color:#5a8a6f;">Banca:</span> <strong style="color:#c0e0d0;">Fundação Cesgranrio</strong></div>
+        <div><span style="color:#5a8a6f;">Prova:</span> <strong style="color:#c0e0d0;">10/01/2027 (Salvador/BA)</strong></div>
+        <div><span style="color:#5a8a6f;">Etapas:</span> <strong style="color:#c0e0d0;">Objetiva + Discursiva + Títulos</strong></div>
+        <div><span style="color:#5a8a6f;">Jornada:</span> <strong style="color:#c0e0d0;">40h semanais</strong></div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>🎯 Meta até a prova:</strong> Concluir o edital verticalizado, marcar todas as sessões semanais,
+      realizar pelo menos 6 simulados completos e manter média de 80% de acerto nos conhecimentos específicos.
+      A prova objetiva tem 100 questões (40 pts em Gerais + 120 pts em Específicos) e a discursiva vale 100 pts
+      (mínimo 70). Habilitação na objetiva: ≥ 112 pontos.
+    </div>
+  </section>
+
+  <section id="cronograma" class="section">
+    <h2 style="font-size:1.3rem; color:#c0e0d0; margin-bottom:1.2rem;">📅 Cronograma & Registro Semanal</h2>
+
+    <div class="info-box">
+      <strong>✅ Como usar:</strong> Escolha a semana, toque em cada sessão estudada (Manhã / Tarde / Noite) e escreva suas anotações. Tudo é salvo automaticamente.
+      <br><strong>📌 Estratégia Cesgranrio:</strong> As provas da Cesgranrio têm enunciados claros e cobram interpretação + literalidade da lei. Foco em Direito Constitucional, Administrativo, Políticas Públicas e Finanças (peso grande nos Específicos).
+    </div>
+
+    <div class="week-selector" id="week-selector"></div>
+    <div class="card" id="week-content"></div>
+
+    <div class="card">
+      <h3>🗒️ Registro de Anotações da Semana</h3>
+      <textarea
+        class="week-notes"
+        id="week-notes-textarea"
+        placeholder="Ex: Semana produtiva. Preciso revisar as teorias de políticas públicas (múltiplos fluxos, equilíbrio pontuado). Consegui 18/20 no simulado. Na próxima semana focar em LRF e ciclo orçamentário..."></textarea>
+      <div style="margin-top:0.9rem; display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="saveWeekNotes()">💾 Salvar</button>
+        <button class="btn btn-secondary btn-sm" onclick="clearWeekNotes()">🗑️ Limpar</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="edital" class="section">
+    <h2 style="font-size:1.3rem; color:#c0e0d0; margin-bottom:1.2rem;">📋 Edital Verticalizado</h2>
+    <div class="info-box">
+      Toque em cada tópico para marcá-lo como estudado. O progresso é salvo automaticamente no navegador.
+    </div>
+
+    <div class="disc-grid" id="edital-grid">
+
+      <!-- LÍNGUA PORTUGUESA -->
+      <div class="disc-card" data-disc="portugues">
+        <div class="header">
+          <h4>📖 Língua Portuguesa</h4>
+          <span class="badge">10 questões · 10 pts</span>
+        </div>
+        <ul class="topics" data-disc="portugues">
+          <li data-topic="p1"><span class="check">✓</span> Compreensão de texto. Organização estrutural. Marcas de textualidade (coesão, coerência, intertextualidade)</li>
+          <li data-topic="p2"><span class="check">✓</span> Tipos textuais e características específicas</li>
+          <li data-topic="p3"><span class="check">✓</span> Estrutura da frase: deslocamento, substituição, modificação, correção. Pontuação. Organização sintática. Ordem direta/inversa. Regência e concordância</li>
+          <li data-topic="p4"><span class="check">✓</span> Estrutura e formação de palavras</li>
+          <li data-topic="p5"><span class="check">✓</span> Classes de palavras (morfológico, sintático, semântico, textual)</li>
+          <li data-topic="p6"><span class="check">✓</span> Semântica: sentido próprio/figurado, antônimos, sinônimos, parônimos, hiperônimos, polissemia, ambiguidade</li>
+          <li data-topic="p7"><span class="check">✓</span> Vocabulário: neologismos, arcaísmos, estrangeirismos</li>
+          <li data-topic="p8"><span class="check">✓</span> Ortografia, acentuação gráfica e crase</li>
+        </ul>
+      </div>
+
+      <!-- DIREITO CONSTITUCIONAL -->
+      <div class="disc-card" data-disc="const">
+        <div class="header">
+          <h4>⚖️ Direito Constitucional</h4>
+          <span class="badge">5 questões · 5 pts</span>
+        </div>
+        <ul class="topics" data-disc="const">
+          <li data-topic="c1"><span class="check">✓</span> Constituição Federal: princípios fundamentais e aplicabilidade das normas constitucionais</li>
+          <li data-topic="c2"><span class="check">✓</span> Direitos e garantias fundamentais (individuais, sociais, nacionalidade, políticos, partidos)</li>
+          <li data-topic="c3"><span class="check">✓</span> Organização político-administrativa do Estado</li>
+          <li data-topic="c4"><span class="check">✓</span> Administração Pública: disposições gerais e servidores públicos</li>
+          <li data-topic="c5"><span class="check">✓</span> Poderes Executivo, Legislativo e Judiciário: atribuições e competências</li>
+          <li data-topic="c6"><span class="check">✓</span> Funções essenciais à Justiça. Segurança pública</li>
+          <li data-topic="c7"><span class="check">✓</span> Ordem Econômica e Financeira. Ordem Social</li>
+          <li data-topic="c8"><span class="check">✓</span> Constituição do Estado da Bahia</li>
+        </ul>
+      </div>
+
+      <!-- DIREITO ADMINISTRATIVO -->
+      <div class="disc-card" data-disc="diradm">
+        <div class="header">
+          <h4>🏛️ Direito Administrativo</h4>
+          <span class="badge">5 questões · 5 pts</span>
+        </div>
+        <ul class="topics" data-disc="diradm">
+          <li data-topic="da1"><span class="check">✓</span> Estado, Governo e Administração Pública. Princípios constitucionais. Regime jurídico administrativo</li>
+          <li data-topic="da2"><span class="check">✓</span> LINDB (Decreto-Lei 4.657/1942)</li>
+          <li data-topic="da3"><span class="check">✓</span> Poderes da Administração Pública</li>
+          <li data-topic="da4"><span class="check">✓</span> Serviços Públicos (Lei 8.987/1995, 11.079/2004, Lei Estadual 9.290/2004)</li>
+          <li data-topic="da5"><span class="check">✓</span> Organização administrativa. Agências Reguladoras. Lei das Estatais (13.303/2016). Entidades paraestatais</li>
+          <li data-topic="da6"><span class="check">✓</span> Atos administrativos: perfeição, validade, eficácia; revogação, anulação, convalidação</li>
+          <li data-topic="da7"><span class="check">✓</span> Processo Administrativo (Lei Estadual 12.209/2011)</li>
+          <li data-topic="da8"><span class="check">✓</span> Responsabilidade civil do Estado. Agentes públicos</li>
+          <li data-topic="da9"><span class="check">✓</span> Servidores Públicos do Estado da Bahia (Lei 6.677/1994)</li>
+          <li data-topic="da10"><span class="check">✓</span> Licitações e Contratos (Lei 14.133/2021 e Lei Estadual 14.634/2023)</li>
+          <li data-topic="da11"><span class="check">✓</span> Controle da Administração (interno, externo, TCE - LC 005/1991)</li>
+          <li data-topic="da12"><span class="check">✓</span> Domínio público: bens públicos, aquisição, alienação, proteção ambiental</li>
+        </ul>
+      </div>
+
+      <!-- ADMINISTRAÇÃO PÚBLICA -->
+      <div class="disc-card" data-disc="adm">
+        <div class="header">
+          <h4>🏢 Administração Pública</h4>
+          <span class="badge">5 questões · 5 pts</span>
+        </div>
+        <ul class="topics" data-disc="adm">
+          <li data-topic="ad1"><span class="check">✓</span> Poder e dominação. Governo e sistemas de governo</li>
+          <li data-topic="ad2"><span class="check">✓</span> Estado: conceito e evolução do Estado Moderno. Aparelho de Estado nas democracias liberais</li>
+          <li data-topic="ad3"><span class="check">✓</span> Emergência da questão social. Estado de bem-estar social</li>
+          <li data-topic="ad4"><span class="check">✓</span> Weber e a burocracia. Paradigma burocrático vs. gerencial</li>
+          <li data-topic="ad5"><span class="check">✓</span> Estado unitário e federalismo. Relação entre esferas. Reforma do Estado</li>
+          <li data-topic="ad6"><span class="check">✓</span> Parcerias com OSCs (Lei Estadual 15.176/2026 e Lei Federal 13.019/2014)</li>
+          <li data-topic="ad7"><span class="check">✓</span> Municipalização. Consórcios Públicos. Terceirização. PPP</li>
+        </ul>
+      </div>
+
+      <!-- ÉTICA E INTEGRIDADE -->
+      <div class="disc-card" data-disc="etica">
+        <div class="header">
+          <h4>🛡️ Ética e Integridade Pública</h4>
+          <span class="badge">5 questões · 5 pts</span>
+        </div>
+        <ul class="topics" data-disc="etica">
+          <li data-topic="et1"><span class="check">✓</span> Princípios e valores éticos do serviço público (art. 37, CF/88)</li>
+          <li data-topic="et2"><span class="check">✓</span> Gestão de riscos e medidas mitigatórias</li>
+          <li data-topic="et3"><span class="check">✓</span> Improbidade Administrativa (Lei 8.429/1992) e Lei Anticorrupção</li>
+          <li data-topic="et4"><span class="check">✓</span> Acesso à Informação (LAI 12.527/2011, Lei Estadual 12.618/2012, Dec. Estadual 24.375/2026)</li>
+          <li data-topic="et5"><span class="check">✓</span> Programa Bahia de Integridade Pública (PBIP - Portaria SEFAZ 136/2024)</li>
+          <li data-topic="et6"><span class="check">✓</span> Apuração de irregularidades e penalidades (Dec. Estadual 24.441/2026)</li>
+        </ul>
+      </div>
+
+      <!-- DEMOCRACIA E DIVERSIDADE -->
+      <div class="disc-card" data-disc="diversidade">
+        <div class="header">
+          <h4>🌍 Democracia, Cidadania e Diversidade</h4>
+          <span class="badge">5 questões · 5 pts</span>
+        </div>
+        <ul class="topics" data-disc="diversidade">
+          <li data-topic="dv1"><span class="check">✓</span> Estado de direito e CF/88. Democracia, representação política e participação cidadã</li>
+          <li data-topic="dv2"><span class="check">✓</span> Presidencialismo como sistema de governo</li>
+          <li data-topic="dv3"><span class="check">✓</span> Efetivação e reparação de Direitos Humanos. Combate às discriminações</li>
+          <li data-topic="dv4"><span class="check">✓</span> Desenvolvimento sustentável, meio ambiente e mudança climática</li>
+          <li data-topic="dv5"><span class="check">✓</span> Diversidade de sexo, gênero, sexualidade, étnico-racial e cultural</li>
+          <li data-topic="dv6"><span class="check">✓</span> Inclusão de grupos vulnerabilizados (crianças, idosos, LGBTQIA+, PcD, etc.)</li>
+          <li data-topic="dv7"><span class="check">✓</span> Constituição da Bahia (Cap. XXIII "Do Negro"). Estatuto da Igualdade Racial (12.288/2010)</li>
+          <li data-topic="dv8"><span class="check">✓</span> Lei 7.716/1989, Decreto 65.810/1969, Decreto 4.377/2002</li>
+          <li data-topic="dv9"><span class="check">✓</span> Lei Maria da Penha (11.340/2006). Estatuto Estadual (Lei 13.182/2014)</li>
+          <li data-topic="dv10"><span class="check">✓</span> Decreto 1.973/1996 (Convenção Interamericana contra a Violência à Mulher)</li>
+        </ul>
+      </div>
+
+      <!-- ECONOMIA -->
+      <div class="disc-card" data-disc="economia">
+        <div class="header">
+          <h4>💹 Economia</h4>
+          <span class="badge">5 questões · 5 pts</span>
+        </div>
+        <ul class="topics" data-disc="economia">
+          <li data-topic="ec1"><span class="check">✓</span> Macroeconomia: contas nacionais, agregados, produto, renda, despesa, consumo, investimento, poupança</li>
+          <li data-topic="ec2"><span class="check">✓</span> Exportações, importações, balanço de pagamentos, taxas de câmbio. Inflação e índices de preços</li>
+          <li data-topic="ec3"><span class="check">✓</span> Política monetária, cambial, ciclos econômicos e estabilização</li>
+          <li data-topic="ec4"><span class="check">✓</span> Globalização, multilateralismo, organismos internacionais</li>
+          <li data-topic="ec5"><span class="check">✓</span> Economia brasileira: hiperinflação, transição neoliberal, Plano Real, tripé macroeconômico</li>
+          <li data-topic="ec6"><span class="check">✓</span> Política fiscal, tributos, gastos, déficit, dívida pública, teto de gastos</li>
+          <li data-topic="ec7"><span class="check">✓</span> Economia Baiana: ciclos do cacau, Petrobras, Polo de Camaçari, turismo, economia criativa, mineração, energias limpas, agronegócio</li>
+        </ul>
+      </div>
+
+      <!-- GESTÃO GOVERNAMENTAL -->
+      <div class="disc-card" data-disc="gestao">
+        <div class="header">
+          <h4>⚙️ Gestão Governamental</h4>
+          <span class="badge">15 questões · 30 pts</span>
+        </div>
+        <ul class="topics" data-disc="gestao">
+          <li data-topic="gg1"><span class="check">✓</span> Tipos de estrutura organizacional e critérios de departamentalização</li>
+          <li data-topic="gg2"><span class="check">✓</span> Organização como sistema social. Atividades do gestor (PODC)</li>
+          <li data-topic="gg3"><span class="check">✓</span> Processo decisório. Gestão de conflitos. Mudança organizacional. Descentralização e delegação</li>
+          <li data-topic="gg4"><span class="check">✓</span> Eficiência, eficácia, efetividade. Gestão da Qualidade. Excelência na Adm. Pública</li>
+          <li data-topic="gg5"><span class="check">✓</span> Enfoque no cidadão. Nova Gestão Pública vs. Novo Serviço Público</li>
+          <li data-topic="gg6"><span class="check">✓</span> Impacto do ambiente. Visão sistêmica. Gestão de documentos</li>
+          <li data-topic="gg7"><span class="check">✓</span> Gestão de Pessoas: evolução, recrutamento, seleção, avaliação, competências, clima, comportamento, cultura</li>
+          <li data-topic="gg8"><span class="check">✓</span> Grupos e equipes. Qualidade de vida. Liderança. Teorias da motivação. Negociação</li>
+          <li data-topic="gg9"><span class="check">✓</span> Legislação de pessoal (Lei 6.677/1994). Tendências. IA nos processos</li>
+          <li data-topic="gg10"><span class="check">✓</span> Gestão de Logística e Patrimônio (material, imobiliário, mobiliário, cadeia de suprimentos, logística reversa)</li>
+          <li data-topic="gg11"><span class="check">✓</span> Serviços de apoio (protocolo, arquivos, SI, manutenção). Sustentabilidade nas compras públicas</li>
+          <li data-topic="gg12"><span class="check">✓</span> Gestão de Serviços Públicos. Inovação. Transformação digital. LGPD. Ética e IA generativa</li>
+          <li data-topic="gg13"><span class="check">✓</span> Gestão Organizacional da Estratégia (ver Planejamento) e de Projetos e Processos (PMBOK, ágeis, BPM, BI, Big Data)</li>
+        </ul>
+      </div>
+
+      <!-- PLANEJAMENTO E GESTÃO ESTRATÉGICA -->
+      <div class="disc-card" data-disc="planejamento">
+        <div class="header">
+          <h4>🎯 Planejamento e Gestão Estratégica</h4>
+          <span class="badge">15 questões · 30 pts</span>
+        </div>
+        <ul class="topics" data-disc="planejamento">
+          <li data-topic="pl1"><span class="check">✓</span> Planejamento estratégico, tático e operacional. Etapas, níveis, métodos</li>
+          <li data-topic="pl2"><span class="check">✓</span> Balanced Scorecard (BSC). Matriz SWOT. Mapas estratégicos. Objetivos e metas</li>
+          <li data-topic="pl3"><span class="check">✓</span> Análise de cenários. Medição de desempenho. Indicadores. OKR</li>
+          <li data-topic="pl4"><span class="check">✓</span> Gestão de projetos: PMBOK (integração, escopo, tempo, custos, qualidade, RH, comunicações, riscos, aquisições, stakeholders). Metodologias ágeis</li>
+          <li data-topic="pl5"><span class="check">✓</span> Gestão de processos: BPM, mapeamento, análise, melhoria. Desenho de serviços públicos</li>
+          <li data-topic="pl6"><span class="check">✓</span> Portais corporativos e colaborativos. Web services. BI (Data Warehouse, DataMart, Data Mining). Big Data</li>
+          <li data-topic="pl7"><span class="check">✓</span> Retomada do Planejamento Estratégico de longo prazo</li>
+          <li data-topic="pl8"><span class="check">✓</span> Ciclo Quadrienal: PPA, LDO, LOA</li>
+          <li data-topic="pl9"><span class="check">✓</span> Política de Desenvolvimento Territorial (Lei Estadual 13.214/2014)</li>
+          <li data-topic="pl10"><span class="check">✓</span> Modelo de Governança do PPA 2024-2027 (Decreto Estadual 22.770/2024)</li>
+        </ul>
+      </div>
+
+      <!-- POLÍTICAS PÚBLICAS -->
+      <div class="disc-card" data-disc="politicas">
+        <div class="header">
+          <h4>📋 Políticas Públicas</h4>
+          <span class="badge">15 questões · 30 pts</span>
+        </div>
+        <ul class="topics" data-disc="politicas">
+          <li data-topic="pp1"><span class="check">✓</span> Conceituações de políticas públicas</li>
+          <li data-topic="pp2"><span class="check">✓</span> Processo de elaboração. Papel do Estado. Burocracia e Estado. Poder, racionalidade e decisão. Discricionariedade</li>
+          <li data-topic="pp3"><span class="check">✓</span> Teorias contemporâneas: escolha racional, redes, múltiplos fluxos, equilíbrio pontuado, coalizões de defesa</li>
+          <li data-topic="pp4"><span class="check">✓</span> Implementação: problemas, dilemas, desafios. Arranjos institucionais</li>
+          <li data-topic="pp5"><span class="check">✓</span> Diversidade e inclusão. Ações afirmativas. Intersetorialidade. Transversalidade. Interseccionalidade</li>
+          <li data-topic="pp6"><span class="check">✓</span> Participação e controle social: conselhos, conferências, audiências públicas, orçamento participativo</li>
+          <li data-topic="pp7"><span class="check">✓</span> Coordenação: intragovernamental, intergovernamental, governo-sociedade</li>
+          <li data-topic="pp8"><span class="check">✓</span> Avaliação de políticas: componentes, tipologia, pesquisa avaliativa</li>
+          <li data-topic="pp9"><span class="check">✓</span> Estatística aplicada: amostragem, inferência, distribuições, média, mediana, moda</li>
+        </ul>
+      </div>
+
+      <!-- FINANÇAS PÚBLICAS -->
+      <div class="disc-card" data-disc="financas">
+        <div class="header">
+          <h4>💰 Finanças Públicas</h4>
+          <span class="badge">15 questões · 30 pts</span>
+        </div>
+        <ul class="topics" data-disc="financas">
+          <li data-topic="fp1"><span class="check">✓</span> Orçamento Público: conceitos, princípios, tipos (tradicional, base zero, desempenho, programa)</li>
+          <li data-topic="fp2"><span class="check">✓</span> Política fiscal e equilíbrio orçamentário. Déficit público e dívida pública</li>
+          <li data-topic="fp3"><span class="check">✓</span> Pacto Federativo. Federalismo fiscal: distribuição de receitas e encargos</li>
+          <li data-topic="fp4"><span class="check">✓</span> Classificação e execução de receita e despesa. Estágios. Estrutura programática</li>
+          <li data-topic="fp5"><span class="check">✓</span> Ciclo orçamentário. Créditos adicionais. Programação e descentralização. Contingenciamento. Limite de empenho</li>
+          <li data-topic="fp6"><span class="check">✓</span> LRF (LC 101/2000): princípios, objetivos, regra de ouro, despesa obrigatória, vedações, instrumentos de transparência</li>
+          <li data-topic="fp7"><span class="check">✓</span> Limites constitucionais e legais (educação, saúde, pessoal, dívida, operações de crédito). Transferências voluntárias. LRF e transparência</li>
+          <li data-topic="fp8"><span class="check">✓</span> LCP 131/2009 (transparência). Vinculações de receitas. Transferências intergovernamentais. DRU/DRE</li>
+          <li data-topic="fp9"><span class="check">✓</span> Emendas parlamentares ao Orçamento. Previdência. Precatórios</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="simulados" class="section">
+    <h2 style="font-size:1.3rem; color:#c0e0d0; margin-bottom:1.2rem;">✏️ Simulados — Estilo Cesgranrio</h2>
+    <div class="info-box">
+      <strong>🎯 Estilo da banca:</strong> Múltipla escolha com 5 alternativas, enunciados claros, com foco em interpretação e literalidade da lei.
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showSimulado('sim1', this)">Simulado 1 — Constitucional/Adm</button>
+      <button class="tab-btn" onclick="showSimulado('sim2', this)">Simulado 2 — Políticas Públicas</button>
+      <button class="tab-btn" onclick="showSimulado('sim3', this)">Simulado 3 — Finanças</button>
+      <button class="tab-btn" onclick="showSimulado('sim4', this)">Simulado 4 — Economia</button>
+    </div>
+
+    <div id="sim1" class="simulado-container section active"></div>
+    <div id="sim2" class="simulado-container section"></div>
+    <div id="sim3" class="simulado-container section"></div>
+    <div id="sim4" class="simulado-container section"></div>
+
+    <div style="text-align:center; margin-top:1.5rem;">
+      <button class="btn btn-secondary" onclick="resetSimulados()">🔄 Resetar Simulados</button>
+    </div>
+  </section>
+
+  <section id="pomodoro" class="section">
+    <h2 style="font-size:1.3rem; color:#c0e0d0; margin-bottom:1.2rem;">🍅 Timer Pomodoro</h2>
+
+    <div class="card">
+      <div class="pomodoro-box">
+        <div class="pomodoro-label" id="pomo-phase">FOCO</div>
+        <div class="pomodoro-timer" id="pomo-display">25:00</div>
+        <div style="font-size:0.82rem; color:#3a6a4f; margin-bottom:0.5rem;">
+          Ciclo: <span id="pomo-cycle">1</span> · Pomodoros: <span id="pomo-count">0</span>
+        </div>
+        <div class="pomodoro-controls">
+          <button class="btn btn-primary" id="pomo-start" onclick="togglePomodoro()">▶ Iniciar</button>
+          <button class="btn btn-secondary" onclick="resetPomodoro()">↻ Resetar</button>
+        </div>
+        <div style="margin-top:1.2rem; font-size:0.8rem; color:#3a6a4f; line-height:1.6;">
+          🎯 25 min de foco · 5 min pausa curta · 15 min pausa longa a cada 4 ciclos
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>📋 Checklist de Sessão</h3>
+      <div id="pomo-checklist">
+        <label class="checklist-item"><input type="checkbox"> Celular no silencioso e fora de alcance</label>
+        <label class="checklist-item"><input type="checkbox"> Água e lanche preparados</label>
+        <label class="checklist-item"><input type="checkbox"> Material de estudo organizado</label>
+        <label class="checklist-item"><input type="checkbox"> Fone de ouvido (se for usar música)</label>
+        <label class="checklist-item"><input type="checkbox"> Meta da sessão definida</label>
+      </div>
+    </div>
+  </section>
+
+  <section id="musica" class="section">
+    <h2 style="font-size:1.3rem; color:#c0e0d0; margin-bottom:1.2rem;">🎵 Música, Foco e Relaxamento</h2>
+
+    <div class="card">
+      <h3>▶ Player de Estudo</h3>
+      <div class="music-options">
+        <button class="music-btn active" onclick="loadMusic('lofi', event)">🎧 Lofi</button>
+        <button class="music-btn" onclick="loadMusic('chill', event)">🌧️ Chuva</button>
+        <button class="music-btn" onclick="loadMusic('classical', event)">🎻 Clássica</button>
+        <button class="music-btn" onclick="loadMusic('binaural', event)">🧠 Frequências</button>
+        <button class="music-btn" onclick="loadMusic('jazz', event)">🎷 Jazz</button>
+        <button class="music-btn" onclick="loadMusic('nature', event)">🌿 Natureza</button>
+      </div>
+      <div id="yt-player">
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/jfKfPfyJRdk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🧘 Pausas Programadas</h3>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; font-size:0.88rem;">
+        <div style="background:#0a1810; padding:1rem; border-radius:10px; border:1px solid #1a3a2a;">
+          <strong style="color:#00e6a0;">Pausa Curta (5 min)</strong><br>
+          <span style="color:#7a9a8a;">Levante-se, alongue o pescoço e os ombros, beba água.</span>
+        </div>
+        <div style="background:#0a1810; padding:1rem; border-radius:10px; border:1px solid #1a3a2a;">
+          <strong style="color:#d4af37;">Pausa Longa (15 min)</strong><br>
+          <span style="color:#7a9a8a;">Caminhe, faça um lanche leve, feche os olhos por 5 minutos.</span>
+        </div>
+        <div style="background:#0a1810; padding:1rem; border-radius:10px; border:1px solid #1a3a2a;">
+          <strong style="color:#ff9d00;">Recuperação Mental</strong><br>
+          <span style="color:#7a9a8a;">A cada 4 pomodoros, faça a pausa longa. Não pule!</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="memoria" class="section">
+    <h2 style="font-size:1.3rem; color:#c0e0d0; margin-bottom:1.2rem;">🧠 Caderno de Aprendizado</h2>
+
+    <div class="info-box">
+      <strong>🔗 Integração com IA (NotebookLM / ChatGPT):</strong> Registre insights, dúvidas e erros recorrentes. Copie o conteúdo e cole na IA para gerar resumos e mapas mentais.
+    </div>
+
+    <div class="card">
+      <h3>📝 Registro de Insights e Erros</h3>
+      <div style="display:flex; gap:8px; margin-bottom:1rem; flex-direction:column;">
+        <select id="memory-disc">
+          <option value="portugues">Português</option>
+          <option value="const">Const.</option>
+          <option value="diradm">Dir. Administrativo</option>
+          <option value="adm">Adm. Pública</option>
+          <option value="etica">Ética</option>
+          <option value="diversidade">Diversidade</option>
+          <option value="economia">Economia</option>
+          <option value="gestao">Gestão Gov.</option>
+          <option value="planejamento">Planej. Estratégico</option>
+          <option value="politicas">Políticas Públicas</option>
+          <option value="financas">Finanças</option>
+        </select>
+        <input type="text" id="memory-text" placeholder="Insight, dúvida ou erro...">
+        <button class="btn btn-primary" onclick="addMemory()">+ Adicionar Insight</button>
+      </div>
+      <div id="memory-list"></div>
+    </div>
+
+    <div class="card">
+      <h3>🔁 Sugestões de Revisão</h3>
+      <div style="font-size:0.88rem; color:#7a9a8a; line-height:1.8;">
+        <p>📌 <strong style="color:#00e6a0;">Revisão espaçada:</strong> Revise em 1, 7 e 30 dias.</p>
+        <p>📌 <strong style="color:#d4af37;">Mapas mentais:</strong> Para cada lei (CF, 14.133, LRF, 6.677), crie um mapa.</p>
+        <p>📌 <strong style="color:#ff9d00;">Teorias de Políticas Públicas:</strong> múltiplos fluxos, equilíbrio pontuado e coalizões de defesa são muito cobradas.</p>
+        <p>📌 <strong style="color:#00ffb2;">Simulados:</strong> 1 completo por semana a partir de dezembro.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    Dashboard de Estudos · Concurso SAEB 2026 · EPPGG · Banca Fundação Cesgranrio
+  </div>
 </main>
-<script>
-const $=s=>document.querySelector(s);
-let S;try{S=JSON.parse(localStorage.getItem('eppgg')||'{}')}catch(e){S={}}
-S.t=S.t||{};S.d=S.d||{};S.p=S.p||{};S.sim=S.sim||[];S.err=S.err||[];S.n=S.n||'';
-const save=()=>{try{localStorage.setItem('eppgg',JSON.stringify(S))}catch(e){}};
-const D=[
-["Língua Portuguesa",10,["Interpretação e compreensão de texto","Coesão, coerência e tipos textuais","Sintaxe: termos e orações","Regência e concordância","Pontuação e crase","Morfologia e classes de palavras","Semântica e vocabulário","Ortografia e acentuação"]],
-["Direito Constitucional",5,["Princípios fundamentais e eficácia das normas","Direitos e garantias fundamentais","Organização político-administrativa","Administração Pública e servidores (art. 37 a 41)","Poderes Executivo, Legislativo e Judiciário","Funções essenciais à justiça","Ordem econômica e social","Constituição do Estado da Bahia"]],
-["Direito Administrativo",5,["Princípios e regime jurídico administrativo","Poderes e atos administrativos","Organização administrativa e Lei 13.303","Serviços públicos, concessões e PPP","Processo administrativo (Lei estadual 12.209/2011)","Estatuto dos Servidores (Lei 6.677/1994)","Licitações e contratos (Lei 14.133/2021)","Controle da Administração","Responsabilidade civil, bens públicos e LINDB"]],
-["Administração Pública",5,["Estado, governo e burocracia (Weber)","Paradigmas burocrático e gerencial","Reforma do Estado e bem-estar social","Federalismo e consórcios públicos","OS e OSC (Lei 13.019 e lei estadual de OS)","Terceirização e parcerias público-privadas"]],
-["Ética e Integridade Pública",5,["Princípios éticos e art. 37 da CF","Improbidade (Lei 8.429)","Lei Anticorrupção (Lei 12.846)","Acesso à informação (Lei 12.527 e normas da Bahia)","Programa Bahia de Integridade Pública","Gestão de riscos","Apuração de irregularidades (Decreto 24.441/2026)"]],
-["Democracia, Diversidade e Igualdade",5,["Democracia, participação e CF/88","Direitos humanos","Desigualdades de renda, região, raça, idade e gênero","Diversidade e grupos vulnerabilizados","Estatutos da Igualdade Racial (federal e Bahia)","Lei Maria da Penha e convenções internacionais","Desenvolvimento sustentável e clima"]],
-["Economia",5,["Contas nacionais e agregados","Inflação e índices de preços","Política monetária e cambial","Balanço de pagamentos e câmbio","Ciclos econômicos e Plano Real (tripé)","Política fiscal, déficit e dívida","Economia baiana (ciclos, turismo, indústria, energia)"]],
-["Gestão Governamental",30,["Estruturas organizacionais e departamentalização","Processo decisório e mudança organizacional","Nova Gestão Pública x Novo Serviço Público","Gestão de pessoas, desempenho e competências","Liderança, motivação, clima e cultura","Logística, patrimônio e compras sustentáveis","Inovação, transformação digital e IA","LGPD (Lei 13.709)","Planejamento estratégico: BSC, SWOT, OKR, indicadores","Projetos: PMBOK e métodos ágeis","Processos: BPM, BI, Big Data"]],
-["Planejamento e Gestão Estratégica",30,["PPA, LDO e LOA","Planejamento estratégico de longo prazo","Política de Desenvolvimento Territorial (Lei 13.214/2014)","Governança do PPA 2024-2027 (Decreto 22.770/2024)"]],
-["Políticas Públicas",30,["Conceitos e ciclo de políticas públicas","Teorias: múltiplos fluxos, equilíbrio pontuado, coalizões, redes","Implementação e arranjos institucionais","Diversidade, ações afirmativas e interseccionalidade","Participação e controle social","Coordenação e intersetorialidade","Avaliação de políticas públicas","Estatística: amostragem, inferência, média, mediana e moda"]],
-["Finanças Públicas",30,["Orçamento: princípios e tipos","Receita e despesa: classificação e estágios","Ciclo orçamentário e créditos adicionais","Lei de Responsabilidade Fiscal","Federalismo fiscal e transferências","Dívida pública, déficit e política fiscal","Emendas, previdência e precatórios"]]];
-const FOCO=["Específicas valem 120 de 160 pontos (2 pontos por questão): Gestão, Planejamento, Políticas Públicas e Finanças pesam 75% da objetiva.","Nota mínima nas objetivas: 112 pontos (70%). Mire 75% nos simulados.","Provas da banca costumam ter 5 alternativas, enunciados longos e assertivas numeradas: treine eliminação e leitura atenta (tendência geral, confirme nas provas anteriores).","Português: textos longos, interpretação, coesão e pontuação valem mais que decorar regras.","Direito e Ética: literalidade do art. 37, leis citadas no edital e as normas novas da Bahia (2026).","Discursiva: 100 pontos, 20 a 30 linhas, mínimo 70; 50% conteúdo e 50% idioma. Só corrigem os 165 melhores da ampla e 165 das cotas.","Resolva provas anteriores da Cesgranrio por assunto antes de simulados completos."];
-const iso=d=>d.toISOString().slice(0,10),DAY=864e5,start=new Date('2026-10-06T12:00:00Z'),exam=new Date('2027-01-10T12:00:00Z');
-const loc=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
-const R={1:[7],2:[9],3:[10],4:[2,1],5:[8,0],6:[3,4,5,6]};
-const disc=dt=>{const o=dt.getUTCDay();if(!o||dt<start)return null;const w=Math.floor((dt-start)/(7*DAY)),a=R[o];return a[w%a.length]};
-const PH=dt=>{const i=iso(dt);return i<='2026-11-15'?['Base: entender o edital','Teoria + resumo curto']:i<='2026-12-15'?['Aprofundamento','Teoria dirigida + mapa mental']:i<='2027-01-03'?['Questões e simulados','Questões por assunto + caderno de erros']:['Reta final','Revisão ativa dos erros e resumos']};
-function plan(dt){const i=iso(dt),o=dt.getUTCDay(),ph=PH(dt),n=D[disc(dt)]?.[0];
-if(i=='2027-01-10')return[['06:00','Dia da prova: manhã Gerais + Discursiva, tarde Específicas. Chegue 45 min antes do fechamento dos portões com RG original e caneta transparente azul ou preta.',1]];
-if(i=='2027-01-09')return[['19:30','Revisão leve de resumos e caderno de erros. Separe documentos e material transparente. Durma cedo.',1]];
-if(o==0)return[['06:00','Simulado semanal estilo Cesgranrio (50 questões, cronometrado)',2],['08:15','Pausa 20 min: água e alongamento',0],['08:35','Correção e caderno de erros',2],['09:30','Pausa 15 min',0],['09:45','Discursiva: 1 tema, 20 a 30 linhas à mão',2],['10:35','Pausa 15 min',0],['10:50','Revisão semanal dos tópicos da semana',2]];
-if(o==6)return[['08:00','Teoria: '+n,4],['10:30','Pausa 20 min',0],['10:50','Questões Cesgranrio: '+n,3],['12:30','Almoço e descanso',0],['14:30','Revisão semanal dos erros',2]];
-const rv=[...new Set([disc(new Date(dt-DAY)),disc(new Date(dt-7*DAY))].filter(x=>x!=null).map(x=>D[x][0]))].join(' e ')||'conteúdos iniciais';
-return[['19:30',ph[1]+': '+n,2],['20:20','Pausa 15 min',0],['20:35','Questões Cesgranrio: '+n,1],['21:00','Pausa 5 min',0],['21:05','Revisão: '+rv,1],['21:30','Pausa 5 min',0],['21:35','Português: 1 texto e 5 questões',1]]}
-const days=[];for(let d=new Date(start);d<=exam;d=new Date(+d+DAY))days.push(new Date(d));
-const sk=(i,k)=>i+'#'+k;
-// nav
-const TABS=[['hoje','Hoje'],['crono','Cronograma'],['edital','Edital'],['sim','Simulados e erros'],['foc','Foco e música']];
-$('#nav').innerHTML=TABS.map(t=>`<button data-t="${t[0]}">${t[1]}</button>`).join('');
-function tab(id){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==id))}
-$('#nav').onclick=e=>{if(e.target.dataset.t)tab(e.target.dataset.t)};
-// kpis
-function kpis(){let tot=0,ck=0;D.forEach((d,x)=>d[2].forEach((_,y)=>{tot++;if(S.t[x+'.'+y])ck++}));
-let st=0,sd=0;days.forEach(dt=>plan(dt).forEach((s,k)=>{if(s[2]){st++;if(S.d[sk(iso(dt),k)])sd++}}));
-const pt=Object.values(S.p).reduce((a,b)=>a+b,0),ac=S.sim.reduce((a,s)=>a+s.a,0),to=S.sim.reduce((a,s)=>a+s.t,0),pc=to?Math.round(ac/to*100):null;
-const dl=Math.max(0,Math.ceil((exam-new Date(loc+'T12:00:00Z'))/DAY));
-const K=(v,l,p,c)=>`<div class="k"><b ${c?`class="${c}"`:''}>${v}</b><span>${l}</span>${p!=null?`<div class="bar"><i style="width:${p}%"></i></div>`:''}</div>`;
-$('#kpis').innerHTML=K(dl,'dias até a prova (10/01/2027)')+K(Math.round(ck/tot*100)+'%','edital estudado ('+ck+' de '+tot+')',ck/tot*100)+K(Math.round(sd/st*100)+'%','sessões do cronograma',sd/st*100)+K(pc==null?'sem dados':pc+'%','acerto em simulados (meta 70%)',pc,pc==null?'':pc>=70?'ok':'warn')+K((S.p[loc]||0)+' / '+pt,'pomodoros hoje / total',null)}
-// hoje
-function hoje(){const dt=days.find(d=>iso(d)==loc)||(loc<iso(days[0])?days[0]:days[days.length-1]),i=iso(dt),ph=PH(dt);
-$('#hjT').textContent=(i==loc?'Hoje':'Dia de estudo')+', '+dt.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',timeZone:'UTC'});
-$('#hjP').textContent='Fase: '+ph[0]+'. Foco: '+(D[disc(dt)]?.[0]||(dt.getUTCDay()==0?'simulado e revisão semanal':'prova'))+'.';
-$('#hjL').innerHTML=rows(dt);$('#foco').innerHTML=FOCO.map(f=>`<div class="row p"><span>${f}</span></div>`).join('')}
-function rows(dt){const i=iso(dt);return plan(dt).map((s,k)=>s[2]?`<label class="row ${S.d[sk(i,k)]?'done':''}"><input type="checkbox" data-s="${sk(i,k)}" ${S.d[sk(i,k)]?'checked':''}><time>${s[0]}</time><span class="t">${s[1]} <span class="tag">${s[2]} pomodoro${s[2]>1?'s':''}</span></span></label>`:`<div class="row p"><input type="checkbox" disabled style="visibility:hidden"><time>${s[0]}</time><span>${s[1]}</span></div>`).join('')}
-// cronograma
-function crono(){const ws={};days.forEach(d=>{const w=Math.floor((d-start)/(7*DAY));(ws[w]=ws[w]||[]).push(d)});
-$('#cronoL').innerHTML=Object.keys(ws).map(w=>{const a=ws[w],cur=a.some(d=>iso(d)==loc);return`<details ${cur?'open':''}><summary>Semana ${+w+1}: ${a[0].toLocaleDateString('pt-BR',{day:'2-digit',month:'short',timeZone:'UTC'})} a ${a[a.length-1].toLocaleDateString('pt-BR',{day:'2-digit',month:'short',timeZone:'UTC'})} <span class="tag">${PH(a[0])[0]}</span></summary><div>${a.map(d=>`<h2 style="margin-top:12px;font-size:15px">${d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit',timeZone:'UTC'})}</h2>${rows(d)}`).join('')}</div></details>`}).join('')}
-// edital
-function edital(){$('#editalL').innerHTML=D.map((d,x)=>{const c=d[2].filter((_,y)=>S.t[x+'.'+y]).length;return`<details><summary>${d[0]} · peso ${d[1]} <span class="tag">${c}/${d[2].length}</span><div class="bar"><i style="width:${c/d[2].length*100}%"></i></div></summary><div>${d[2].map((t,y)=>`<label class="row"><input type="checkbox" data-e="${x}.${y}" ${S.t[x+'.'+y]?'checked':''}><span>${t}</span></label>`).join('')}</div></details>`}).join('')}
-document.addEventListener('change',e=>{const t=e.target;if(t.dataset.s){S.d[t.dataset.s]=t.checked;t.closest('.row').classList.toggle('done',t.checked)}else if(t.dataset.e){S.t[t.dataset.e]=t.checked;const o=[...document.querySelectorAll('#editalL details')].map(x=>x.open);save();edital();document.querySelectorAll('#editalL details').forEach((x,i)=>x.open=o[i])}else return;save();kpis()});
-// simulados
-const opts='<option value="-1">Simulado geral</option>'+D.map((d,i)=>`<option value="${i}">${d[0]}</option>`).join('');$('#sD').innerHTML=opts;$('#eD').innerHTML=opts.replace('Simulado geral','Disciplina');$('#sDt').value=loc;
-const dn=i=>i<0?'Geral':D[i][0];
-function sim(){$('#sL').innerHTML=S.sim.length?'<table><tr><th>Data</th><th>Prova</th><th>Nota</th><th></th></tr>'+S.sim.map((s,i)=>`<tr><td>${s.dt.slice(5).split('-').reverse().join('/')}</td><td>${dn(s.d)}</td><td>${s.a}/${s.t} <b class="${s.a/s.t>=.7?'ok':'bad'}">${Math.round(s.a/s.t*100)}%</b></td><td><button class="btn" data-ds="${i}" aria-label="Excluir">x</button></td></tr>`).join('')+'</table>':'<p class="sub">Nenhum simulado ainda. Registre o primeiro ao lado.</p>';
-$('#sP').innerHTML=D.map((d,i)=>{const l=S.sim.filter(s=>s.d==i),a=l.reduce((x,s)=>x+s.a,0),t=l.reduce((x,s)=>x+s.t,0);return`<div style="margin-bottom:8px">${d[0]} <b class="${t?(a/t>=.7?'ok':'warn'):''}">${t?Math.round(a/t*100)+'%':'sem dados'}</b><div class="bar"><i style="width:${t?a/t*100:0}%"></i></div></div>`}).join('');
-$('#eL').innerHTML=S.err.map((e,i)=>`<div class="row"><span><span class="tag">${dn(e.d)}</span> <b>${e.a||''}</b><br>${e.x.replace(/</g,'&lt;')}</span><button class="btn" data-de="${i}" aria-label="Excluir">x</button></div>`).join('')||'<p class="sub">Sem erros registrados. Anote aqui cada questão errada.</p>'}
-$('#sAdd').onclick=()=>{const a=+$('#sA').value,t=+$('#sT').value;if(!t||a>t||a<0){alert('Informe acertos e total válidos (acertos não pode passar do total).');return}S.sim.unshift({d:+$('#sD').value,dt:$('#sDt').value||loc,a,t});$('#sA').value=$('#sT').value='';save();sim();kpis()};
-$('#eAdd').onclick=()=>{const x=$('#eT').value.trim();if(!x)return;S.err.unshift({d:+$('#eD').value,a:$('#eA').value,x});$('#eT').value=$('#eA').value='';save();sim()};
-$('#sim').addEventListener('click',e=>{const t=e.target;if(t.dataset.ds){S.sim.splice(t.dataset.ds,1)}else if(t.dataset.de){S.err.splice(t.dataset.de,1)}else return;save();sim();kpis()});
-// pomodoro
-let mode=25,left=1500,iv=null;
-const fmt=()=>{const m=Math.floor(left/60),s=left%60;$('#tm').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');document.title=iv?$('#tm').textContent+' · EPPGG':'EPPGG Bahia 2026'};
-const pcs=()=>$('#pc').textContent='Pomodoros hoje: '+(S.p[loc]||0)+'. A cada 4 focos, faça a pausa longa.';
-function beep(){try{const c=new AudioContext(),o=c.createOscillator();o.connect(c.destination);o.frequency.value=660;o.start();o.stop(c.currentTime+.5)}catch(e){}}
-function stop(){clearInterval(iv);iv=null;$('#go').textContent='Iniciar'}
-document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{stop();mode=+b.dataset.m;left=mode*60;fmt()});
-$('#go').onclick=()=>{if(iv){stop();fmt();return}$('#go').textContent='Pausar';iv=setInterval(()=>{left--;if(left<=0){const f=mode==25;stop();left=0;beep();if(f){S.p[loc]=(S.p[loc]||0)+1;save();pcs();kpis()}alert(f?'Foco concluído. Faça uma pausa.':'Pausa encerrada. Volte ao foco.')}fmt()},1000)};
-$('#rs').onclick=()=>{stop();left=mode*60;fmt()};
-// música
-const yt=id=>$('#yt').src='https://www.youtube-nocookie.com/embed/'+id;
-document.querySelectorAll('[data-y]').forEach(b=>b.onclick=()=>yt(b.dataset.y));
-$('#yu').onchange=e=>{const v=e.target.value,l=v.match(/[?&]list=([\w-]+)/),i=v.match(/(?:v=|youtu\.be\/)([\w-]{11})/);if(l)$('#yt').src='https://www.youtube-nocookie.com/embed/videoseries?list='+l[1];else if(i)yt(i[1]);else alert('Link do YouTube não reconhecido.')};
-$('#nt').value=S.n;$('#nt').oninput=e=>{S.n=e.target.value;save()};
 
-const Q=[[10,"Segundo a Lei de Responsabilidade Fiscal, considera-se despesa obrigatória de caráter continuado aquela que fixa ao ente a obrigação legal de execução por período superior a",["um exercício","dois exercícios","três exercícios","quatro exercícios","cinco exercícios"],1,"LRF, art. 17: período superior a dois exercícios."],
-[9,"No modelo dos Múltiplos Fluxos (Kingdon), a entrada de um tema na agenda decorre da convergência dos fluxos de",["problemas, soluções e política","receitas, despesas e metas","atores, regras e recursos","demandas, produtos e impactos","planejamento, execução e controle"],0,"Problemas, soluções (alternativas) e política se unem numa janela de oportunidade."],
-[10,"Para atender despesas urgentes e imprevisíveis, como as decorrentes de calamidade pública, o instrumento orçamentário adequado é o crédito",["suplementar","especial","extraordinário","ordinário","reaberto por emenda"],2,"CF, art. 167, §3º, e Lei 4.320/1964: crédito extraordinário."],
-[2,"A Lei federal nº 14.133/2021 NÃO prevê, como modalidade de licitação, a",["concorrência","pregão","diálogo competitivo","tomada de preços","leilão"],3,"Tomada de preços e convite foram extintos; restam concorrência, concurso, leilão, pregão e diálogo competitivo."],
-[1,"De acordo com o art. 37 da Constituição Federal, o prazo de validade do concurso público é de até",["um ano, sem prorrogação","dois anos, prorrogável uma vez por igual período","dois anos, prorrogável duas vezes","três anos, sem prorrogação","quatro anos, prorrogável uma vez"],1,"CF, art. 37, III: até dois anos, prorrogável uma vez por igual período."],
-[7,"Qual perspectiva NÃO integra o Balanced Scorecard original?",["Financeira","Clientes","Processos internos","Aprendizado e crescimento","Fornecedores"],4,"As quatro perspectivas são financeira, clientes, processos internos e aprendizado e crescimento."]];
-$('#pa').innerHTML=D.map(d=>`<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent('cesgranrio prova questões '+d[0])}">${d[0]}</a>`).join('');
-$('#mq').innerHTML=Q.map((q,i)=>`<fieldset style="border:1px solid var(--line);border-radius:10px;margin:0 0 8px"><legend>${i+1}. ${D[q[0]][0]}</legend><p>${q[1]}</p>${q[2].map((o,j)=>`<label class="row"><input type="radio" name="q${i}" value="${j}"><span>(${'ABCDE'[j]}) ${o}</span></label>`).join('')}</fieldset>`).join('');
-$('#mGo').onclick=()=>{let a=0,h='';Q.forEach((q,i)=>{const r=document.querySelector(`input[name=q${i}]:checked`),ok=r&&+r.value==q[3];if(ok)a++;else S.err.unshift({d:q[0],a:'Mini-simulado, questão '+(i+1),x:'Gabarito '+'ABCDE'[q[3]]+'. '+q[4]});h+=`<p class="${ok?'ok':'bad'}">${i+1}: ${ok?'certa':'errada, gabarito '+'ABCDE'[q[3]]}. ${q[4]}</p>`});S.sim.unshift({d:-1,dt:loc,a,t:Q.length});save();sim();kpis();$('#mR').innerHTML='<b>'+a+' de '+Q.length+'</b>'+h};
-kpis();hoje();crono();edital();sim();pcs();fmt();tab('hoje');
-</script></body></html>
+<div class="toast" id="toast"></div>
+
+<script>
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebar-overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('active', sb.classList.contains('open'));
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('active');
+}
+
+function showSection(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+  if (window.innerWidth <= 768) closeSidebar();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+const STORAGE_KEY = 'saeb_eppgg_v1';
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return {
+    topics: {}, simAcertos: 0, simErros: 0, simTotal: 0, simRespostas: {},
+    pomodoros: 0, pomoCycle: 1, memories: [], sessions: {}, weekNotes: {}, currentWeek: 'w1'
+  };
+}
+function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {} }
+let state = loadState();
+
+/* STREAK */
+const STREAK_KEY = 'saeb_streak_v1';
+const STREAK_BACKUP_KEY = 'saeb_streak_backup_v1';
+const RESET_PASSWORD = 'bubu';
+
+function getDateKey(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function getTodayKey() { return getDateKey(new Date()); }
+function makeHash(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) { h = ((h << 5) - h) + str.charCodeAt(i); h = h & h; }
+  return Math.abs(h).toString(36);
+}
+
+function loadStreakData() {
+  let primary = null, backup = null;
+  try { primary = JSON.parse(localStorage.getItem(STREAK_KEY)); } catch(e) {}
+  try { backup = JSON.parse(localStorage.getItem(STREAK_BACKUP_KEY)); } catch(e) {}
+  const p = primary || { history: {}, best: 0 };
+  const b = backup || { history: {}, best: 0 };
+  const mergedHistory = { ...p.history, ...b.history };
+  const mergedBest = Math.max(p.best || 0, b.best || 0);
+  return { history: mergedHistory, best: mergedBest };
+}
+
+function saveStreakData(data) {
+  try {
+    const str = JSON.stringify(data);
+    localStorage.setItem(STREAK_KEY, str);
+    localStorage.setItem(STREAK_BACKUP_KEY, str);
+  } catch(e) {}
+}
+
+let streakData = loadStreakData();
+
+function logStudyDay() {
+  const today = getTodayKey();
+  if (!streakData.history[today]) {
+    streakData.history[today] = { ts: Date.now(), h: makeHash(today + Date.now() + Math.random().toString()) };
+    const cur = computeStreak();
+    if (cur > streakData.best) streakData.best = cur;
+    saveStreakData(streakData);
+    updateStreakUI();
+    toast('🔥 +1 dia de constância!');
+    return true;
+  }
+  return false;
+}
+
+function markTodayManually() {
+  const today = getTodayKey();
+  if (streakData.history[today]) { toast('✅ Você já marcou o dia de hoje!'); return; }
+  logStudyDay();
+}
+
+function resetStreakWithPassword() {
+  const senha = prompt('🔒 Digite a senha para resetar a constância:');
+  if (senha === null) return;
+  if (senha.toLowerCase() !== RESET_PASSWORD) { toast('❌ Senha incorreta! Constância preservada.'); return; }
+  if (!confirm('⚠️ ATENÇÃO!\n\nIsso vai APAGAR permanentemente:\n• Sequência atual\n• Recorde\n• Histórico\n\nDeseja continuar?')) {
+    toast('🛡️ Reset cancelado.'); return;
+  }
+  streakData = { history: {}, best: 0 };
+  try { localStorage.removeItem(STREAK_KEY); localStorage.removeItem(STREAK_BACKUP_KEY); } catch(e) {}
+  saveStreakData(streakData);
+  updateStreakUI();
+  toast('🔄 Constância resetada.');
+}
+
+function computeStreak() {
+  let streak = 0;
+  const d = new Date();
+  const todayMarked = !!streakData.history[getDateKey(d)];
+  if (!todayMarked) d.setDate(d.getDate() - 1);
+  while (streakData.history[getDateKey(d)]) { streak++; d.setDate(d.getDate() - 1); }
+  return streak;
+}
+
+function computeBestStreak() {
+  const dates = Object.keys(streakData.history).sort();
+  if (dates.length === 0) return 0;
+  let best = 1, cur = 1;
+  for (let i = 1; i < dates.length; i++) {
+    const prev = new Date(dates[i-1] + 'T12:00:00');
+    const curr = new Date(dates[i] + 'T12:00:00');
+    const diff = Math.round((curr - prev) / (1000 * 60 * 60 * 24));
+    if (diff === 1) { cur++; if (cur > best) best = cur; } else { cur = 1; }
+  }
+  return Math.max(best, streakData.best || 0);
+}
+
+function updateStreakUI() {
+  const current = computeStreak();
+  const best = computeBestStreak();
+  const total = Object.keys(streakData.history).length;
+  const todayMarked = !!streakData.history[getTodayKey()];
+
+  document.getElementById('streak-current').textContent = current;
+  document.getElementById('streak-best').textContent = best;
+  document.getElementById('streak-total').textContent = total;
+
+  const btn = document.getElementById('streak-mark-btn');
+  if (btn) {
+    if (todayMarked) {
+      btn.textContent = '✅ Hoje já marcado!';
+      btn.disabled = true;
+      btn.classList.add('marked');
+    } else {
+      btn.textContent = '🔥 Marcar hoje como dia de estudo';
+      btn.disabled = false;
+      btn.classList.remove('marked');
+    }
+  }
+
+  const heatmap = document.getElementById('streak-heatmap');
+  heatmap.innerHTML = '';
+  const today = new Date();
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const key = getDateKey(d);
+    const div = document.createElement('div');
+    div.className = 'heatmap-day';
+    if (streakData.history[key]) div.classList.add('active');
+    if (i === 0) div.classList.add('today');
+    const dt = d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+    div.title = `${dt}${streakData.history[key] ? ' · estudou ✓' : ' · sem estudo'}`;
+    heatmap.appendChild(div);
+  }
+
+  const msgEl = document.getElementById('streak-message');
+  if (current === 0 && total === 0) msgEl.textContent = '🌱 Comece hoje! Clique no botão abaixo para iniciar.';
+  else if (current === 0) msgEl.textContent = '💪 Sua sequência parou. Clique no botão abaixo para reiniciar hoje!';
+  else if (!todayMarked) msgEl.textContent = `🔥 ${current} ${current === 1 ? 'dia seguido' : 'dias seguidos'}! Marque hoje para manter a chama.`;
+  else if (current === 1) msgEl.textContent = '🔥 Primeiro dia! Volte amanhã para manter a constância.';
+  else if (current < 3) msgEl.textContent = `🔥 ${current} dias seguidos! Continue firme.`;
+  else if (current < 7) msgEl.textContent = `🔥 ${current} dias seguidos! Você está construindo constância.`;
+  else if (current < 14) msgEl.textContent = `🔥 Uma semana completa! ${current} dias seguidos. Continue.`;
+  else if (current < 30) msgEl.textContent = `🔥 Você está imparável! ${current} dias seguidos.`;
+  else msgEl.textContent = `🏆 LENDÁRIO! ${current} dias seguidos de dedicação.`;
+
+  const intEl = document.getElementById('streak-integrity');
+  const primary = localStorage.getItem(STREAK_KEY);
+  const backup = localStorage.getItem(STREAK_BACKUP_KEY);
+  if (primary && backup && primary === backup) {
+    intEl.textContent = '✓'; intEl.style.color = '#00ff88'; intEl.title = 'Dados íntegros';
+  } else if (!primary && !backup) {
+    intEl.textContent = '✓'; intEl.style.color = '#5a8a6f'; intEl.title = 'Nenhuma constância registrada';
+  } else {
+    intEl.textContent = '⚠'; intEl.style.color = '#ffaa00'; intEl.title = 'Divergência detectada — recuperando...';
+    saveStreakData(streakData);
+  }
+}
+
+/* COUNTDOWN — DATA DA PROVA SAEB: 10/01/2027 */
+const DATA_PROVA = new Date('2027-01-10T08:00:00-03:00');
+
+function updateCountdown() {
+  const agora = new Date();
+  const diffMs = DATA_PROVA - agora;
+  const cdDays = document.getElementById('cd-days');
+  const cdUnit = document.getElementById('cd-days-unit');
+  const cdDate = document.getElementById('cd-date');
+  const cdHours = document.getElementById('cd-hours');
+  const cdMinutes = document.getElementById('cd-minutes');
+  const cdSeconds = document.getElementById('cd-seconds');
+  const cdMsg = document.getElementById('cd-message');
+
+  const dataFormatada = DATA_PROVA.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+  const horaFormatada = DATA_PROVA.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+  if (diffMs <= 0) {
+    cdDays.textContent = '0'; cdUnit.textContent = 'dias'; cdHours.textContent = '00'; cdMinutes.textContent = '00'; cdSeconds.textContent = '00';
+    cdDate.innerHTML = `Prova realizada em <strong>${dataFormatada}</strong>`;
+    cdMsg.textContent = '🎉 A prova já foi realizada. Boa sorte!'; cdMsg.className = 'cd-message done'; return;
+  }
+
+  const totalSegundos = Math.floor(diffMs / 1000);
+  const dias = Math.floor(totalSegundos / 86400);
+  const horas = Math.floor((totalSegundos % 86400) / 3600);
+  const minutos = Math.floor((totalSegundos % 3600) / 60);
+  const segundos = totalSegundos % 60;
+
+  cdDays.textContent = dias; cdUnit.textContent = dias === 1 ? 'dia' : 'dias';
+  cdHours.textContent = String(horas).padStart(2, '0'); cdMinutes.textContent = String(minutos).padStart(2, '0'); cdSeconds.textContent = String(segundos).padStart(2, '0');
+  cdDate.innerHTML = `📅 <strong>${dataFormatada}</strong><br>às <strong>${horaFormatada}</strong>`;
+
+  if (dias > 60) { cdMsg.textContent = '💪 Ainda há tempo — mantenha o ritmo constante.'; cdMsg.className = 'cd-message'; }
+  else if (dias > 30) { cdMsg.textContent = '⚡ Reta intermediária: acelere as revisões.'; cdMsg.className = 'cd-message'; }
+  else if (dias > 14) { cdMsg.textContent = '🔥 Fase final: priorize revisão e questões.'; cdMsg.className = 'cd-message urgent'; }
+  else if (dias > 7) { cdMsg.textContent = '🚨 Última quinzena: foque nos pontos fracos.'; cdMsg.className = 'cd-message urgent'; }
+  else if (dias > 0) { cdMsg.textContent = '⏰ Semana da prova: revise o caderno de erros.'; cdMsg.className = 'cd-message urgent'; }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* DADOS DAS SEMANAS (10 semanas até a prova) */
+const SUBJECT_TAGS = {
+  'Português': 'tag-port',
+  'Const.': 'tag-dir',
+  'Dir. Adm.': 'tag-dir',
+  'Adm. Pública': 'tag-adm',
+  'Ética': 'tag-etica',
+  'Diversidade': 'tag-div',
+  'Economia': 'tag-eco',
+  'Gestão Gov.': 'tag-gest',
+  'Planej.': 'tag-plan',
+  'Políticas': 'tag-pol',
+  'Finanças': 'tag-fin',
+  'Simulado': 'tag-sim',
+  'Revisão': 'tag-rev'
+};
+
+const weeksData = [
+  { id: 'w1', label: 'Semana 1', period: '02/11 – 08/11', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Const.','Dir. Adm.'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Português','Const.'], tarde: ['Adm. Pública','Economia'], noite: ['Português','Revisão'] } },
+    { name: 'Terça',   sessions: { manha: ['Const.','Dir. Adm.'], tarde: ['Gestão Gov.','Políticas'], noite: ['Finanças','Revisão'] } },
+    { name: 'Quarta',  sessions: { manha: ['Ética','Diversidade'], tarde: ['Português','Planej.'], noite: ['Revisão','Português'] } },
+    { name: 'Quinta',  sessions: { manha: ['Gestão Gov.','Finanças'], tarde: ['Políticas','Economia'], noite: ['Revisão','Adm. Pública'] } },
+    { name: 'Sexta',   sessions: { manha: ['Planej.','Const.'], tarde: ['Português','Simulado'], noite: ['Revisão','Dir. Adm.'] } },
+    { name: 'Sábado',  sessions: { manha: ['Simulado','Revisão'], tarde: ['Políticas','Finanças'], noite: ['Gestão Gov.','Português'] } }
+  ]},
+  { id: 'w2', label: 'Semana 2', period: '09/11 – 15/11', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Gestão Gov.','Planej.'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Políticas','Finanças'], tarde: ['Const.','Dir. Adm.'], noite: ['Português','Revisão'] } },
+    { name: 'Terça',   sessions: { manha: ['Economia','Adm. Pública'], tarde: ['Português','Ética'], noite: ['Diversidade','Revisão'] } },
+    { name: 'Quarta',  sessions: { manha: ['Gestão Gov.','Português'], tarde: ['Políticas','Finanças'], noite: ['Revisão','Const.'] } },
+    { name: 'Quinta',  sessions: { manha: ['Planej.','Dir. Adm.'], tarde: ['Português','Economia'], noite: ['Revisão','Adm. Pública'] } },
+    { name: 'Sexta',   sessions: { manha: ['Simulado','Revisão'], tarde: ['Políticas','Finanças'], noite: ['Português','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Const.','Gestão Gov.'], tarde: ['Diversidade','Ética'], noite: ['Simulado','Revisão'] } }
+  ]},
+  { id: 'w3', label: 'Semana 3', period: '16/11 – 22/11', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Políticas','Finanças'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Dir. Adm.','Economia'], tarde: ['Português','Gestão Gov.'], noite: ['Revisão','Português'] } },
+    { name: 'Terça',   sessions: { manha: ['Planej.','Const.'], tarde: ['Políticas','Adm. Pública'], noite: ['Finanças','Revisão'] } },
+    { name: 'Quarta',  sessions: { manha: ['Português','Diversidade'], tarde: ['Gestão Gov.','Ética'], noite: ['Revisão','Dir. Adm.'] } },
+    { name: 'Quinta',  sessions: { manha: ['Políticas','Economia'], tarde: ['Português','Finanças'], noite: ['Revisão','Const.'] } },
+    { name: 'Sexta',   sessions: { manha: ['Simulado','Revisão'], tarde: ['Gestão Gov.','Planej.'], noite: ['Português','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Dir. Adm.','Políticas'], tarde: ['Finanças','Adm. Pública'], noite: ['Simulado','Revisão'] } }
+  ]},
+  { id: 'w4', label: 'Semana 4', period: '23/11 – 29/11', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Const.','Dir. Adm.'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Gestão Gov.','Planej.'], tarde: ['Políticas','Português'], noite: ['Revisão','Português'] } },
+    { name: 'Terça',   sessions: { manha: ['Finanças','Economia'], tarde: ['Const.','Ética'], noite: ['Revisão','Políticas'] } },
+    { name: 'Quarta',  sessions: { manha: ['Português','Diversidade'], tarde: ['Adm. Pública','Dir. Adm.'], noite: ['Gestão Gov.','Revisão'] } },
+    { name: 'Quinta',  sessions: { manha: ['Políticas','Finanças'], tarde: ['Português','Gestão Gov.'], noite: ['Revisão','Planej.'] } },
+    { name: 'Sexta',   sessions: { manha: ['Simulado','Revisão'], tarde: ['Const.','Políticas'], noite: ['Português','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Finanças','Economia'], tarde: ['Dir. Adm.','Adm. Pública'], noite: ['Simulado','Revisão'] } }
+  ]},
+  { id: 'w5', label: 'Semana 5', period: '30/11 – 06/12', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Gestão Gov.','Planej.'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Políticas','Finanças'], tarde: ['Português','Const.'], noite: ['Revisão','Dir. Adm.'] } },
+    { name: 'Terça',   sessions: { manha: ['Economia','Adm. Pública'], tarde: ['Português','Ética'], noite: ['Diversidade','Revisão'] } },
+    { name: 'Quarta',  sessions: { manha: ['Gestão Gov.','Português'], tarde: ['Políticas','Finanças'], noite: ['Revisão','Planej.'] } },
+    { name: 'Quinta',  sessions: { manha: ['Const.','Dir. Adm.'], tarde: ['Português','Economia'], noite: ['Revisão','Adm. Pública'] } },
+    { name: 'Sexta',   sessions: { manha: ['Simulado','Revisão'], tarde: ['Gestão Gov.','Políticas'], noite: ['Português','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Finanças','Planej.'], tarde: ['Diversidade','Ética'], noite: ['Simulado','Revisão'] } }
+  ]},
+  { id: 'w6', label: 'Semana 6', period: '07/12 – 13/12', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Políticas','Finanças'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Gestão Gov.','Const.'], tarde: ['Português','Dir. Adm.'], noite: ['Revisão','Português'] } },
+    { name: 'Terça',   sessions: { manha: ['Planej.','Economia'], tarde: ['Políticas','Adm. Pública'], noite: ['Finanças','Revisão'] } },
+    { name: 'Quarta',  sessions: { manha: ['Português','Diversidade'], tarde: ['Gestão Gov.','Ética'], noite: ['Revisão','Const.'] } },
+    { name: 'Quinta',  sessions: { manha: ['Políticas','Finanças'], tarde: ['Português','Planej.'], noite: ['Revisão','Dir. Adm.'] } },
+    { name: 'Sexta',   sessions: { manha: ['Simulado','Revisão'], tarde: ['Gestão Gov.','Políticas'], noite: ['Português','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Finanças','Economia'], tarde: ['Adm. Pública','Ética'], noite: ['Simulado','Revisão'] } }
+  ]},
+  { id: 'w7', label: 'Semana 7', period: '14/12 – 20/12', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Const.','Dir. Adm.'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Gestão Gov.','Planej.'], tarde: ['Políticas','Português'], noite: ['Revisão','Finanças'] } },
+    { name: 'Terça',   sessions: { manha: ['Economia','Adm. Pública'], tarde: ['Const.','Ética'], noite: ['Revisão','Políticas'] } },
+    { name: 'Quarta',  sessions: { manha: ['Português','Diversidade'], tarde: ['Dir. Adm.','Finanças'], noite: ['Gestão Gov.','Revisão'] } },
+    { name: 'Quinta',  sessions: { manha: ['Políticas','Finanças'], tarde: ['Português','Gestão Gov.'], noite: ['Revisão','Planej.'] } },
+    { name: 'Sexta',   sessions: { manha: ['Simulado','Revisão'], tarde: ['Const.','Políticas'], noite: ['Português','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Finanças','Economia'], tarde: ['Dir. Adm.','Adm. Pública'], noite: ['Simulado','Revisão'] } }
+  ]},
+  { id: 'w8', label: 'Semana 8', period: '21/12 – 27/12', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Gestão Gov.','Planej.'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Políticas','Finanças'], tarde: ['Português','Const.'], noite: ['Revisão','Dir. Adm.'] } },
+    { name: 'Terça',   sessions: { manha: ['Economia','Adm. Pública'], tarde: ['Português','Ética'], noite: ['Diversidade','Revisão'] } },
+    { name: 'Quarta',  sessions: { manha: ['Gestão Gov.','Português'], tarde: ['Políticas','Finanças'], noite: ['Revisão','Planej.'] } },
+    { name: 'Quinta',  sessions: { manha: ['Const.','Dir. Adm.'], tarde: ['Português','Economia'], noite: ['Revisão','Adm. Pública'] } },
+    { name: 'Sexta',   sessions: { manha: ['Simulado','Revisão'], tarde: ['Gestão Gov.','Políticas'], noite: ['Português','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Finanças','Planej.'], tarde: ['Diversidade','Ética'], noite: ['Simulado','Revisão'] } }
+  ]},
+  { id: 'w9', label: 'Semana 9', period: '28/12 – 03/01', days: [
+    { name: 'Domingo', sessions: { manha: ['Português','Revisão'], tarde: ['Políticas','Finanças'], noite: ['Simulado','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Gestão Gov.','Const.'], tarde: ['Português','Dir. Adm.'], noite: ['Revisão','Português'] } },
+    { name: 'Terça',   sessions: { manha: ['Planej.','Economia'], tarde: ['Políticas','Adm. Pública'], noite: ['Finanças','Revisão'] } },
+    { name: 'Quarta',  sessions: { manha: ['Português','Diversidade'], tarde: ['Gestão Gov.','Ética'], noite: ['Revisão','Const.'] } },
+    { name: 'Quinta',  sessions: { manha: ['Políticas','Finanças'], tarde: ['Português','Planej.'], noite: ['Revisão','Dir. Adm.'] } },
+    { name: 'Sexta',   sessions: { manha: ['Simulado','Revisão'], tarde: ['Gestão Gov.','Políticas'], noite: ['Português','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Finanças','Economia'], tarde: ['Adm. Pública','Ética'], noite: ['Simulado','Revisão'] } }
+  ]},
+  { id: 'w10', label: 'Semana 10', period: '04/01 – 10/01', days: [
+    { name: 'Domingo', sessions: { manha: ['Revisão','Revisão'], tarde: ['Simulado','Revisão'], noite: ['Revisão','Revisão'] } },
+    { name: 'Segunda', sessions: { manha: ['Revisão','Revisão'], tarde: ['Const.','Revisão'], noite: ['Revisão','Dir. Adm.'] } },
+    { name: 'Terça',   sessions: { manha: ['Revisão','Revisão'], tarde: ['Português','Revisão'], noite: ['Políticas','Revisão'] } },
+    { name: 'Quarta',  sessions: { manha: ['Revisão','Revisão'], tarde: ['Gestão Gov.','Revisão'], noite: ['Finanças','Revisão'] } },
+    { name: 'Quinta',  sessions: { manha: ['Revisão','Revisão'], tarde: ['Simulado','Revisão'], noite: ['Revisão','Revisão'] } },
+    { name: 'Sexta',   sessions: { manha: ['Revisão','Revisão'], tarde: ['Revisão','Revisão'], noite: ['Revisão','Revisão'] } },
+    { name: 'Sábado',  sessions: { manha: ['Revisão','Revisão'], tarde: ['Revisão','Revisão'], noite: ['Revisão','Revisão'] } }
+  ]}
+];
+
+function getWeekSessionCount(weekId) {
+  const w = weeksData.find(x => x.id === weekId);
+  if (!w) return { done: 0, total: 0 };
+  let done = 0, total = 0;
+  w.days.forEach((d, di) => {
+    Object.keys(d.sessions).forEach(period => {
+      total++;
+      const key = `${weekId}_${di}_${period}`;
+      if (state.sessions[key]) done++;
+    });
+  });
+  return { done, total };
+}
+function isWeekComplete(weekId) {
+  const { done, total } = getWeekSessionCount(weekId);
+  return total > 0 && done === total;
+}
+
+function renderWeekSelector() {
+  const sel = document.getElementById('week-selector');
+  sel.innerHTML = '';
+  weeksData.forEach(w => {
+    const { done, total } = getWeekSessionCount(w.id);
+    const complete = done === total && total > 0;
+    const btn = document.createElement('button');
+    btn.className = 'week-btn' + (state.currentWeek === w.id ? ' active' : '');
+    btn.innerHTML = `
+      <span class="wb-label">${w.label} ${complete ? '✅' : ''}</span>
+      <span class="wb-period">${w.period}</span>
+      <span class="wb-progress">${done}/${total}</span>
+    `;
+    btn.onclick = () => {
+      state.currentWeek = w.id;
+      saveState();
+      renderWeekSelector();
+      renderWeekContent();
+    };
+    sel.appendChild(btn);
+  });
+}
+
+function renderWeekContent() {
+  const week = weeksData.find(x => x.id === state.currentWeek) || weeksData[0];
+  const { done, total } = getWeekSessionCount(week.id);
+  const pct = total > 0 ? Math.round((done/total)*100) : 0;
+
+  const container = document.getElementById('week-content');
+  container.innerHTML = `
+    <div class="week-header">
+      <h3>📅 ${week.label} · ${week.period}</h3>
+      <div class="week-stats">
+        <span>Sessões: <strong>${done}/${total}</strong></span>
+        <span>Progresso: <strong>${pct}%</strong></span>
+      </div>
+    </div>
+    <div class="progress-bar" style="margin-bottom:1rem;">
+      <div class="progress-fill green" style="width:${pct}%"></div>
+    </div>
+    <div class="day-grid" id="day-grid"></div>
+    <div class="week-actions">
+      <button class="btn btn-success btn-sm" onclick="markAllWeek(true)">✅ Marcar semana</button>
+      <button class="btn btn-secondary btn-sm" onclick="markAllWeek(false)">🔄 Desmarcar</button>
+    </div>
+  `;
+
+  const grid = document.getElementById('day-grid');
+  week.days.forEach((day, di) => {
+    const dayCard = document.createElement('div');
+    dayCard.className = 'day-card';
+    let dayDone = 0, dayTotal = 0;
+    Object.keys(day.sessions).forEach(p => {
+      dayTotal++;
+      if (state.sessions[`${week.id}_${di}_${p}`]) dayDone++;
+    });
+    if (dayDone === dayTotal && dayTotal > 0) dayCard.classList.add('complete');
+
+    let sessionsHTML = '';
+    const periodLabels = { manha: '☀️ Manhã', tarde: '🌤️ Tarde', noite: '🌙 Noite' };
+    Object.entries(day.sessions).forEach(([period, subjects]) => {
+      const key = `${week.id}_${di}_${period}`;
+      const checked = !!state.sessions[key];
+      const tags = subjects.map(s => {
+        const cls = SUBJECT_TAGS[s] || 'tag-rev';
+        return `<span class="subject-tag ${cls}">${s}</span>`;
+      }).join(' ');
+      sessionsHTML += `
+        <label class="session-block ${checked ? 'checked' : ''}" data-key="${key}">
+          <input type="checkbox" ${checked ? 'checked' : ''}
+                 onchange="toggleSession('${key}', this)">
+          <div class="session-content">
+            <div class="session-label">${periodLabels[period]}</div>
+            <div class="session-tags">${tags}</div>
+          </div>
+        </label>
+      `;
+    });
+
+    dayCard.innerHTML = `
+      <div class="day-title">
+        <span>${day.name}</span>
+        <span class="day-progress ${dayDone === dayTotal && dayTotal > 0 ? 'done' : ''}">
+          ${dayDone}/${dayTotal}
+        </span>
+      </div>
+      ${sessionsHTML}
+    `;
+    grid.appendChild(dayCard);
+  });
+
+  document.getElementById('week-notes-textarea').value = state.weekNotes[week.id] || '';
+}
+
+function toggleSession(key, checkbox) {
+  if (checkbox.checked) {
+    state.sessions[key] = true;
+    logStudyDay();
+  } else {
+    delete state.sessions[key];
+  }
+  saveState();
+  const label = checkbox.closest('.session-block');
+  if (label) label.classList.toggle('checked', checkbox.checked);
+  renderWeekSelector();
+  updateDayCounters();
+  updateDashboard();
+  if (checkbox.checked) toast('✅ Sessão marcada!');
+}
+
+function updateDayCounters() {
+  const week = weeksData.find(x => x.id === state.currentWeek);
+  if (!week) return;
+  const dayCards = document.querySelectorAll('#day-grid .day-card');
+  week.days.forEach((day, di) => {
+    const card = dayCards[di];
+    if (!card) return;
+    let dDone = 0, dTotal = 0;
+    Object.keys(day.sessions).forEach(p => {
+      dTotal++;
+      if (state.sessions[`${week.id}_${di}_${p}`]) dDone++;
+    });
+    const progEl = card.querySelector('.day-progress');
+    if (progEl) {
+      progEl.textContent = `${dDone}/${dTotal}`;
+      progEl.classList.toggle('done', dDone === dTotal && dTotal > 0);
+    }
+    card.classList.toggle('complete', dDone === dTotal && dTotal > 0);
+  });
+
+  const { done, total } = getWeekSessionCount(week.id);
+  const pct = total > 0 ? Math.round((done/total)*100) : 0;
+  const statsEl = document.querySelector('#week-content .week-stats');
+  if (statsEl) {
+    statsEl.innerHTML = `<span>Sessões: <strong>${done}/${total}</strong></span><span>Progresso: <strong>${pct}%</strong></span>`;
+  }
+  const bar = document.querySelector('#week-content .progress-fill');
+  if (bar) bar.style.width = pct + '%';
+}
+
+function markAllWeek(value) {
+  const week = weeksData.find(x => x.id === state.currentWeek);
+  if (!week) return;
+  week.days.forEach((day, di) => {
+    Object.keys(day.sessions).forEach(p => {
+      const key = `${week.id}_${di}_${p}`;
+      if (value) state.sessions[key] = true;
+      else delete state.sessions[key];
+    });
+  });
+  if (value) logStudyDay();
+  saveState();
+  renderWeekSelector();
+  renderWeekContent();
+  updateDashboard();
+  toast(value ? '✅ Semana toda marcada!' : '🔄 Semana desmarcada.');
+}
+
+function saveWeekNotes() {
+  const txt = document.getElementById('week-notes-textarea').value;
+  state.weekNotes[state.currentWeek] = txt;
+  saveState();
+  updateDashboard();
+  toast('💾 Anotações salvas!');
+}
+
+function clearWeekNotes() {
+  if (!confirm('Limpar as anotações desta semana?')) return;
+  document.getElementById('week-notes-textarea').value = '';
+  delete state.weekNotes[state.currentWeek];
+  saveState();
+  updateDashboard();
+  toast('🗑️ Anotações limpas.');
+}
+
+function updateDashboard() {
+  const allTopics = document.querySelectorAll('.topics li');
+  const totalTopics = allTopics.length;
+  const doneTopics = document.querySelectorAll('.topics li.done').length;
+  const pct = totalTopics > 0 ? Math.round((doneTopics / totalTopics) * 100) : 0;
+  document.getElementById('stat-progress').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  const current = state.currentWeek;
+  const { done, total } = getWeekSessionCount(current);
+  const sessPct = total > 0 ? Math.round((done/total)*100) : 0;
+  document.getElementById('stat-sessoes').textContent = `${done}/${total}`;
+  document.getElementById('stat-sessoes-sub').textContent = `${weeksData.find(w => w.id === current).label} · ${sessPct}%`;
+  document.getElementById('sessoes-fill').style.width = sessPct + '%';
+
+  const completedWeeks = weeksData.filter(w => isWeekComplete(w.id)).length;
+  document.getElementById('stat-semanas').textContent = completedWeeks;
+
+  document.getElementById('stat-acertos').textContent = state.simAcertos;
+  document.getElementById('stat-erros').textContent = state.simErros;
+  document.getElementById('stat-sim-total').textContent = state.simTotal + ' questões';
+  document.getElementById('stat-pomodoros').textContent = state.pomodoros;
+
+  const wpDiv = document.getElementById('weekly-progress');
+  wpDiv.innerHTML = '';
+  weeksData.forEach(w => {
+    const { done, total } = getWeekSessionCount(w.id);
+    const p = total > 0 ? Math.round((done/total)*100) : 0;
+    const complete = done === total && total > 0;
+    wpDiv.innerHTML += `
+      <div style="margin-bottom:1rem; padding:0.8rem; background:#05100a; border-radius:10px; border:1px solid ${complete ? '#00e6a044' : '#1a3a2a'};">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:#a0c0b0; margin-bottom:6px; flex-wrap:wrap; gap:4px;">
+          <span><strong style="color:${complete ? '#00ffb2' : '#c0e0d0'};">${w.label}</strong> <span style="color:#5a8a6f; font-size:0.72rem;"> · ${w.period}</span> ${complete ? ' <span style="color:#00ffb2;">✅</span>' : ''}</span>
+          <span>${done}/${total} · <strong style="color:${p === 100 ? '#00ffb2' : '#00e6a0'};">${p}%</strong></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill ${complete ? 'green' : ''}" style="width:${p}%"></div></div>
+      </div>
+    `;
+  });
+
+  const discMap = {
+    'portugues': 'Língua Portuguesa',
+    'const': 'Direito Constitucional',
+    'diradm': 'Direito Administrativo',
+    'adm': 'Administração Pública',
+    'etica': 'Ética e Integridade',
+    'diversidade': 'Democracia e Diversidade',
+    'economia': 'Economia',
+    'gestao': 'Gestão Governamental',
+    'planejamento': 'Planejamento Estratégico',
+    'politicas': 'Políticas Públicas',
+    'financas': 'Finanças Públicas'
+  };
+  const perfDiv = document.getElementById('disc-performance');
+  perfDiv.innerHTML = '';
+  for (const [key, label] of Object.entries(discMap)) {
+    const topics = document.querySelectorAll(`.topics[data-disc="${key}"] li`);
+    const d = document.querySelectorAll(`.topics[data-disc="${key}"] li.done`).length;
+    const t = topics.length;
+    const p = t > 0 ? Math.round((d/t)*100) : 0;
+    perfDiv.innerHTML += `
+      <div style="margin-bottom:0.9rem;">
+        <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#a0c0b0;"><span>${label}</span><span>${d}/${t} · ${p}%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${p}%"></div></div>
+      </div>`;
+  }
+
+  const cw = weeksData.find(w => w.id === current);
+  const notes = state.weekNotes[current];
+  const regDiv = document.getElementById('current-week-register');
+  if (notes && notes.trim()) {
+    regDiv.innerHTML = `
+      <p style="margin-bottom:0.6rem;"><strong style="color:#00e6a0;">${cw.label} · ${cw.period}</strong> <span style="color:#5a8a6f; font-size:0.78rem;"> — ${done}/${total} sessões</span></p>
+      <div style="background:#05100a; padding:1rem; border-radius:10px; border-left:3px solid #d4af37; white-space:pre-wrap; font-size:0.85rem; color:#a0c0b0;">${escapeHtml(notes)}</div>
+    `;
+  } else {
+    regDiv.innerHTML = `<p>Nenhuma anotação para <strong style="color:#00e6a0;">${cw.label}</strong> ainda.</p><p style="margin-top:0.5rem; font-size:0.8rem; color:#5a8a6f;">Vá em <em>Cronograma & Registro</em> e escreva suas anotações.</p>`;
+  }
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+document.querySelectorAll('.disc-card .topics li').forEach(li => {
+  const topicId = li.dataset.topic;
+  if (state.topics[topicId]) li.classList.add('done');
+  li.addEventListener('click', (e) => {
+    e.stopPropagation();
+    li.classList.toggle('done');
+    state.topics[topicId] = li.classList.contains('done');
+    if (li.classList.contains('done')) logStudyDay();
+    saveState();
+    updateDashboard();
+    toast(li.classList.contains('done') ? '✅ Tópico concluído!' : '🔄 Tópico desmarcado');
+  });
+});
+
+/* SIMULADOS */
+const simulados = {
+  sim1: {
+    titulo: 'Simulado 1 — Constitucional / Administrativo',
+    questoes: [
+      { q: 'Segundo a CF/88, são princípios da Administração Pública expressos no caput do art. 37:', opts: ['Legalidade, impessoalidade, moralidade, publicidade e eficiência','Legalidade, pessoalidade, moralidade, publicidade e eficácia','Legalidade, impessoalidade, moralidade, privacidade e eficiência','Legitimidade, impessoalidade, moralidade, publicidade e eficiência','Legalidade, imparcialidade, moralidade, publicidade e eficiência'], correta: 0, explicacao: 'Art. 37, caput, CF/88: LIMPE — Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.' },
+      { q: 'Sobre a investidura em cargo público estadual (Lei Estadual 6.677/1994), é correto afirmar:', opts: ['Ocorre com a nomeação','Ocorre com a posse','Ocorre com o exercício','Ocorre com a lotação','Ocorre com a homologação'], correta: 1, explicacao: 'A investidura se dá com a posse, seguida do exercício.' },
+      { q: 'Conforme a Lei 14.133/2021, NÃO é modalidade de licitação:', opts: ['Pregão','Concorrência','Tomada de preços','Leilão','Diálogo competitivo'], correta: 2, explicacao: 'A Tomada de Preços foi extinta pela Nova Lei de Licitações (14.133/2021).' },
+      { q: 'Sobre a responsabilidade civil do Estado, a CF/88 adota a teoria:', opts: ['Da culpa administrativa','Do risco integral','Da responsabilidade objetiva','Da irresponsabilidade','Da culpa pessoal do agente'], correta: 2, explicacao: 'Art. 37, §6º, CF/88 — Responsabilidade objetiva (risco administrativo).' },
+      { q: 'Sobre os poderes administrativos, o poder de aplicar sanções a servidores que cometem infrações é o:', opts: ['Poder hierárquico','Poder disciplinar','Poder regulamentar','Poder de polícia','Poder vinculado'], correta: 1, explicacao: 'Poder disciplinar: apurar e punir infrações funcionais.' }
+    ]
+  },
+  sim2: {
+    titulo: 'Simulado 2 — Políticas Públicas',
+    questoes: [
+      { q: 'A teoria dos múltiplos fluxos (John Kingdon) propõe que a formação da agenda ocorre pela confluência de três fluxos:', opts: ['Problemas, políticas e política','Problemas, soluções e economia','Demanda, oferta e governo','Social, econômico e político','Institucional, cultural e jurídico'], correta: 0, explicacao: 'Kingdon: problems, policies e politics — quando se encontram, abre-se a "janela de oportunidade".' },
+      { q: 'A teoria do equilíbrio pontuado (Baumgartner e Jones) sugere que as políticas públicas:', opts: ['Evoluem de forma linear e incremental apenas','Alternam longos períodos de estabilidade com mudanças abruptas','Sempre são resultado da racionalidade técnica','Não sofrem influência da burocracia','São definidas exclusivamente pelo Legislativo'], correta: 1, explicacao: 'Equilíbrio pontuado: períodos longos de estabilidade + mudanças rápidas em momentos críticos.' },
+      { q: 'Sobre o ciclo de políticas públicas, a etapa que envolve a escolha entre alternativas é a de:', opts: ['Formação da agenda','Formulação de alternativas','Tomada de decisão','Implementação','Avaliação'], correta: 2, explicacao: 'A tomada de decisão é o momento de escolha entre as alternativas formuladas.' },
+      { q: 'Sobre avaliação de políticas públicas, a avaliação que ocorre durante a implementação, para corrigir rumos, é chamada de:', opts: ['Ex ante','Ex post','Formativa (ou processual)','Somativa','Diagnóstica'], correta: 2, explicacao: 'Avaliação formativa (in itinere): ocorre durante a execução, para aperfeiçoar o programa.' },
+      { q: 'A transversalidade nas políticas públicas refere-se a:', opts: ['Organização em secretarias específicas','Integração de temas em diferentes setores e políticas','Regionalização das ações','Privatização de serviços','Avaliação econômica apenas'], correta: 1, explicacao: 'Transversalidade: temas (gênero, raça, infância) atravessam várias políticas setoriais.' }
+    ]
+  },
+  sim3: {
+    titulo: 'Simulado 3 — Finanças Públicas',
+    questoes: [
+      { q: 'A Lei de Responsabilidade Fiscal (LC 101/2000) NÃO trata especificamente de:', opts: ['Limites com despesa de pessoal','Regra de ouro','Transparência fiscal','Regulamentação das licitações','Metas fiscais'], correta: 3, explicacao: 'Licitações são regidas pela Lei 14.133/2021, não pela LRF.' },
+      { q: 'A "regra de ouro" da LRF estabelece que:', opts: ['O superávit primário deve ser sempre positivo','As operações de crédito não podem exceder as despesas de capital','A dívida pública não pode ultrapassar 50% do PIB','Todo gasto deve ter receita vinculada','Nenhum ente pode ter déficit'], correta: 1, explicacao: 'Regra de ouro: vedação para operações de crédito que excedam despesas de capital (art. 167, III, CF).' },
+      { q: 'No ciclo orçamentário, o instrumento que estabelece as metas e prioridades da Administração Pública para o exercício seguinte é a(o):', opts: ['PPA','LDO','LOA','LRF','LOAS'], correta: 1, explicacao: 'A LDO orienta a elaboração da LOA e define metas e prioridades.' },
+      { q: 'Os estágios da despesa pública, na ordem correta, são:', opts: ['Empenho, liquidação e pagamento','Liquidação, empenho e pagamento','Pagamento, empenho e liquidação','Empenho, pagamento e liquidação','Liquidação, pagamento e empenho'], correta: 0, explicacao: 'Empenho → Liquidação → Pagamento (art. 63 da Lei 4.320/1964).' },
+      { q: 'Sobre os créditos adicionais, aqueles destinados a despesas urgentes e imprevisíveis (como calamidade pública) são:', opts: ['Especiais','Extraordinários','Suplementares','Suplementares especiais','Extraorçamentários'], correta: 1, explicacao: 'Créditos extraordinários: despesas urgentes e imprevisíveis, abertos por MP em caso de calamidade.' }
+    ]
+  },
+  sim4: {
+    titulo: 'Simulado 4 — Economia',
+    questoes: [
+      { q: 'O Plano Real (1994) adotou como âncora inicial o(a):', opts: ['Congelamento de preços','Âncora cambial','Meta de inflação','Âncora monetária rígida','Controle de salários'], correta: 1, explicacao: 'O Plano Real usou a âncora cambial (valorização do real) para controlar a inflação.' },
+      { q: 'O "tripé macroeconômico" consolidado a partir de 1999 é composto por:', opts: ['Metas de inflação, superávit primário e câmbio flutuante','Câmbio fixo, superávit comercial e metas monetárias','Controle de preços, superávit primário e câmbio fixo','Metas de inflação, déficit primário e câmbio flutuante','Câmbio fixo, déficit nominal zero e metas monetárias'], correta: 0, explicacao: 'Tripé: metas de inflação + superávit primário + câmbio flutuante.' },
+      { q: 'Na economia baiana, o principal polo industrial do estado é o:', opts: ['Polo de Camaçari (Petroquímico)','Polo de Juazeiro (Fruticultura)','Polo de Feira de Santana (Têxtil)','Polo de Ilhéus (Cacau)','Polo de Vitória da Conquista (Café)'], correta: 0, explicacao: 'O Polo Petroquímico de Camaçari é o principal complexo industrial da Bahia.' },
+      { q: 'Sobre os ciclos econômicos baianos, o produto que teve ascensão e queda entre séculos XIX e XX foi:', opts: ['Borracha','Cacau','Café','Algodão','Cana-de-açúcar'], correta: 1, explicacao: 'A lavoura cacaueira (Ilhéus/Itabuna) viveu auge e crise marcantes.' },
+      { q: 'Sobre política fiscal, NÃO é um instrumento típico:', opts: ['Aumento de tributos','Redução de gastos públicos','Emissão de dívida pública','Definição da taxa Selic','Renúncia fiscal'], correta: 3, explicacao: 'A taxa Selic é instrumento de política monetária (Copom), não fiscal.' }
+    ]
+  }
+};
+
+function renderSimulado(id) {
+  const container = document.getElementById(id);
+  const sim = simulados[id];
+  if (!sim) return;
+  let html = `<h3 style="font-size:1rem; color:#d4af37; margin-bottom:1rem;">${sim.titulo}</h3>`;
+  sim.questoes.forEach((q, idx) => {
+    const key = `${id}_q${idx}`;
+    const resp = state.simRespostas[key];
+    const isCorrect = resp !== undefined && resp === q.correta;
+    html += `<div class="simulado-question">
+      <div class="q-text"><strong>${idx+1}.</strong> ${q.q}</div>
+      <div class="q-options">`;
+    q.opts.forEach((opt, oi) => {
+      let cls = 'q-option';
+      if (resp !== undefined) {
+        if (oi === q.correta) cls += ' correct';
+        else if (oi === resp) cls += ' wrong';
+      }
+      html += `<div class="${cls}" onclick="answerSimulado('${id}', ${idx}, ${oi})">${String.fromCharCode(65+oi)}) ${opt}</div>`;
+    });
+    html += `</div>
+      <div class="q-feedback ${resp !== undefined ? 'show' : ''}">
+        ${resp !== undefined ? (isCorrect ? '✅ Correto! ' : '❌ Incorreto. ') + q.explicacao : ''}
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function answerSimulado(simId, qIdx, optIdx) {
+  const key = `${simId}_q${qIdx}`;
+  if (state.simRespostas[key] !== undefined) return;
+  const sim = simulados[simId];
+  const correta = sim.questoes[qIdx].correta;
+  state.simRespostas[key] = optIdx;
+  if (optIdx === correta) { state.simAcertos++; toast('✅ Resposta correta!'); }
+  else { state.simErros++; toast('❌ Incorreto. Veja a explicação.'); }
+  state.simTotal++;
+  logStudyDay();
+  saveState();
+  updateDashboard();
+  renderSimulado(simId);
+}
+
+function showSimulado(id, el) {
+  document.querySelectorAll('#simulados .simulado-container').forEach(c => c.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('#simulados .tab-btn').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderSimulado(id);
+}
+
+function resetSimulados() {
+  if (!confirm('Resetar todos os resultados dos simulados? (A constância NÃO será afetada.)')) return;
+  state.simAcertos = 0; state.simErros = 0; state.simTotal = 0; state.simRespostas = {};
+  saveState();
+  updateDashboard();
+  ['sim1','sim2','sim3','sim4'].forEach(renderSimulado);
+  toast('🔄 Simulados resetados. Constância preservada.');
+}
+
+/* POMODORO */
+let pomoInterval = null;
+let pomoSeconds = 25 * 60;
+let pomoPhase = 'foco';
+let pomoRunning = false;
+
+function togglePomodoro() {
+  if (pomoRunning) {
+    clearInterval(pomoInterval);
+    pomoRunning = false;
+    document.getElementById('pomo-start').textContent = '▶ Iniciar';
+  } else {
+    pomoRunning = true;
+    document.getElementById('pomo-start').textContent = '⏸ Pausar';
+    pomoInterval = setInterval(tickPomodoro, 1000);
+  }
+}
+
+function tickPomodoro() {
+  pomoSeconds--;
+  updatePomoDisplay();
+  if (pomoSeconds <= 0) {
+    clearInterval(pomoInterval);
+    pomoRunning = false;
+    document.getElementById('pomo-start').textContent = '▶ Iniciar';
+    if (pomoPhase === 'foco') {
+      state.pomodoros++;
+      state.pomoCycle = (state.pomoCycle % 4) + 1;
+      logStudyDay();
+      saveState();
+      updateDashboard();
+      if (state.pomoCycle === 1 && state.pomodoros > 0 && state.pomodoros % 4 === 0) {
+        pomoPhase = 'pausa-longa'; pomoSeconds = 15 * 60;
+        toast('🎉 Ciclo completo! Pausa longa de 15 minutos.');
+      } else {
+        pomoPhase = 'pausa-curta'; pomoSeconds = 5 * 60;
+        toast('☕ Pausa curta de 5 minutos. Levante-se!');
+      }
+    } else {
+      pomoPhase = 'foco'; pomoSeconds = 25 * 60;
+      toast('🎯 Hora de focar! Novo pomodoro de 25 minutos.');
+    }
+    updatePomoDisplay();
+  }
+}
+
+function updatePomoDisplay() {
+  const m = Math.floor(pomoSeconds / 60);
+  const s = pomoSeconds % 60;
+  document.getElementById('pomo-display').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('pomo-phase').textContent = pomoPhase === 'foco' ? 'FOCO' : (pomoPhase === 'pausa-curta' ? 'PAUSA CURTA' : 'PAUSA LONGA');
+  document.getElementById('pomo-cycle').textContent = state.pomoCycle;
+  document.getElementById('pomo-count').textContent = state.pomodoros;
+}
+
+function resetPomodoro() {
+  clearInterval(pomoInterval);
+  pomoRunning = false;
+  pomoPhase = 'foco';
+  pomoSeconds = 25 * 60;
+  document.getElementById('pomo-start').textContent = '▶ Iniciar';
+  updatePomoDisplay();
+  toast('↻ Timer resetado para 25:00');
+}
+
+/* MÚSICA */
+const musicUrls = {
+  lofi: 'https://www.youtube.com/embed/jfKfPfyJRdk',
+  chill: 'https://www.youtube.com/embed/mPZkdNFkNps',
+  classical: 'https://www.youtube.com/embed/jgpJVI3tDbY',
+  binaural: 'https://www.youtube.com/embed/WPni755-Krg',
+  jazz: 'https://www.youtube.com/embed/Dx5qFachd3A',
+  nature: 'https://www.youtube.com/embed/eKFTSSKCzWA'
+};
+
+function loadMusic(type, ev) {
+  const url = musicUrls[type];
+  if (!url) return;
+  document.getElementById('yt-player').innerHTML = `<iframe width="100%" height="200" src="${url}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  document.querySelectorAll('.music-btn').forEach(b => b.classList.remove('active'));
+  if (ev && ev.target) ev.target.classList.add('active');
+  toast('🎵 Música carregada!');
+}
+
+/* MEMÓRIA */
+function addMemory() {
+  const disc = document.getElementById('memory-disc').value;
+  const text = document.getElementById('memory-text').value.trim();
+  if (!text) { toast('⚠️ Digite algo antes de adicionar.'); return; }
+  state.memories.unshift({ disc, text, date: new Date().toLocaleDateString('pt-BR') });
+  logStudyDay();
+  saveState();
+  renderMemories();
+  document.getElementById('memory-text').value = '';
+  toast('📝 Insight registrado!');
+}
+
+function renderMemories() {
+  const list = document.getElementById('memory-list');
+  if (state.memories.length === 0) {
+    list.innerHTML = '<div style="font-size:0.85rem; color:#3a6a4f; padding:0.5rem;">Nenhum registro ainda. Adicione insights, dúvidas ou erros recorrentes.</div>';
+    return;
+  }
+  const discLabels = {
+    portugues:'Português', const:'Constitucional', diradm:'Dir. Administrativo',
+    adm:'Adm. Pública', etica:'Ética', diversidade:'Diversidade', economia:'Economia',
+    gestao:'Gestão Gov.', planejamento:'Planej. Estratégico', politicas:'Políticas', financas:'Finanças'
+  };
+  list.innerHTML = state.memories.map(m => `<div class="memory-entry"><div class="timestamp">${m.date} · ${discLabels[m.disc] || m.disc}</div>${escapeHtml(m.text)}</div>`).join('');
+}
+
+function init() {
+  renderWeekSelector();
+  renderWeekContent();
+  updateDashboard();
+  ['sim1','sim2','sim3','sim4'].forEach(renderSimulado);
+  updatePomoDisplay();
+  renderMemories();
+  updateCountdown();
+  updateStreakUI();
+
+  document.querySelectorAll('#pomo-checklist input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', function() {
+      this.parentElement.classList.toggle('checked', this.checked);
+    });
+  });
+}
+init();
+</script>
+</body>
+</html>
